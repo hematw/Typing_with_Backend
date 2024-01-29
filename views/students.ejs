@@ -1,0 +1,50 @@
+<%- include("partials/head.ejs") %>
+
+  <body>
+    <div class="d-flex justify-content-between">
+      <%- include("partials/dashboard") %>
+        <div class="data-container">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
+              aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+          </div>
+          <div >
+            <h1>
+              <%= title %>
+            </h1>
+            <table class="table table-striped">
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">FirstName</th>
+                <th scope="col">LastName</th>
+                <th scope="col">Class</th>
+                <th scope="col">Actions</th>
+              </tr>
+              <% students.forEach((student)=> { %>
+                <tr>
+                  <td scope="row">
+                    <%= student.id %>
+                  </td>
+                  <td>
+                    <%= student.first_name %>
+                  </td>
+                  <td>
+                    <%= student.last_name %>
+                  </td>
+                  <td>
+                    <%= student.class_id %>
+                  </td>
+                  <td>
+                    <a href="/students/<%= student.id %>?method=PUT"></a>
+                  </td>
+                </tr>
+                <% }) %>
+            </table>
+          </div>
+        </div>
+
+    </div>
+  </body>
+
+  </html>

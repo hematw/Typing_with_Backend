@@ -1,0 +1,24 @@
+<%- include("partials/head") %>
+    <div class="d-flex justify-content-center align-items-center container">
+
+        <div class="login-container" id="container">
+            <div class="form-container sign-in">
+                <form action="/login" method="POST">
+                    <h1>Sign In</h1>
+                    <input type="email" placeholder="Email" name="email">
+                    <input type="password" placeholder="Password" name="password">
+                    <a href="#">Forget your Password?</a>
+                    <button>Sign In</button>
+                </form>
+            </div>
+            <div class="toggle-container">
+                <div class="toggle">
+                    <div class="toggle-panel toggle-right">
+                        <h1>HWS</h1>
+                        <h3>Welcome Back!!</h3>
+                        <p>Enter your Email and Password</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

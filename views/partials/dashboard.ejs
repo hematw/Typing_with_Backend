@@ -1,0 +1,70 @@
+<div class="sidebar">
+    <ul>
+        <li class="logo">
+            <a href="/">
+                <span class="icon"><i class="bi bi-box-fill"></i></span>
+                <span class="text">hws</span>
+            </a>
+        </li>
+        <li>
+            <a href="/students">
+                <span class="icon"><i class="bi bi-backpack"></i></span>
+                <span class="text">Students</span>
+            </a>
+        </li>
+        <li>
+            <a href="/users">
+                <span class="icon"><i class="bi bi-people"></i></span>
+                <span class="text">Users</span>
+            </a>
+        </li>
+        <li>
+            <a href="/texts">
+                <span class="icon"><i class="bi bi-card-text"></i></span>
+                <span class="text">Texts</span>
+            </a>
+        </li>
+        <li>
+            <a href="/records">
+                <span class="icon"><i class="bi bi-clock-history"></i></span>
+                <span class="text">Records</span>
+            </a>
+        </li>
+        <li>
+            <a href="/class">
+                <span class="icon"><i class="bi bi-book"></i></span>
+                <span class="text">classes</span>
+            </a>
+        </li>
+        <li>
+            <a href="/settings">
+                <span class="icon"><i class="bi bi-gear"></i></span>
+                <span class="text">Settings</span>
+            </a>
+        </li>
+        <div class="logout">
+            <li>
+                <a href="/profile">
+                    <span class="icon">
+                        <div class="img-box">
+                            <img src="/images/profile.jpg" alt="">
+                        </div>
+                    </span>
+                    <span class="text">
+                        <%= user.username %>
+                        <% if(user.role_id==1) { %>
+                            <span>🔑</span>
+                        <% } %>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/logout">
+                    <span class="icon"><i class="bi bi-box-arrow-right"></i></span>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </div>
+
+    </ul>
+</div>
