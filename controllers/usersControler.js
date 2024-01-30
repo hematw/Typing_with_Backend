@@ -22,7 +22,8 @@ const getAllUers = (req, res) => {
         if (user.length == 0) {
             return res.status(404).json({ err: "Not Found" })
         }
-        res.status(200).json(user);
+        console.log(req.user)
+        res.status(200).render("users", { data: user, title: "Users", logedUser: req.user});
     })
 }
 

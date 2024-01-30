@@ -30,69 +30,69 @@ app.use(session({
     }
 }))
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
-// passport.use(new LocalStrategy({
-//     usernameField: "email"
-// }, (username, password, done) => {
-//     dbConn.read("users", { email: username }, (err, user) => {
-//         if (err) { return done(err) }
-//         if (!user) { return done(null, false) }
-//         if (password !== user[0].password) { return done(null, false) }
-//         return done(null, user)
-//     })
-// }))
+passport.use(new LocalStrategy({
+    usernameField: "email"
+}, (username, password, done) => {
+    dbConn.read("users", { email: username }, (err, user) => {
+        if (err) { return done(err) }
+        if (!user) { return done(null, false) }
+        if (password !== user[0].password) { return done(null, false) }
+        return done(null, user)
+    })
+}))
 
-// passport.serializeUser((user, done) => {
-//     done(null, user[0].id)
-// });
+passport.serializeUser((user, done) => {
+    done(null, user[0].id)
+});
 
-// passport.deserializeUser((id, done) => {
-//     dbConn.read("users", { id }, (err, user) => {
-//         done(err, user[0]);
-//     })
-// });
+passport.deserializeUser((id, done) => {
+    dbConn.read("users", { id }, (err, user) => {
+        done(err, user[0]);
+    })
+});
 
-// app.get("/login", (req, res) => {
-//     if (req.isAuthenticated()) {
-//         res.redirect("/");
-//     } else {
-//         res.render("login", { title: "Sign in" })
-//     }
-// });
+app.get("/login", (req, res) => {
+    if (req.isAuthenticated()) {
+        res.redirect("/");
+    } else {
+        res.render("login", { title: "Sign in" })
+    }
+});
 
-// app.post("/login",
-//     passport.authenticate("local", { failureRedirect: "/login" })
-//     ,
-//     (req, res) => {
-//         res.status(302).redirect("/");
-//     }
-// )
+app.post("/login",
+    passport.authenticate("local", { failureRedirect: "/login" })
+    ,
+    (req, res) => {
+        res.status(302).redirect("/");
+    }
+)
 
-// app.get("/logout", (req, res) => {
-//     req.logOut(()=> {
-//         res.redirect("/login")
-//     });
-// });
+app.get("/logout", (req, res) => {
+    req.logOut(()=> {
+        res.redirect("/login")
+    });
+});
 
 app.get("/", (req, res) => {
-    // if (req.isAuthenticated()) {
+    if (req.isAuthenticated()) {
         res.render("home", { title: "Home", logedUser: req.user })
-    // }
-    //  else {
-        // res.status(401).redirect("/login")
-    // }
+    }
+     else {
+        res.status(401).redirect("/login")
+    }
 })
 
-// app.use((req, res, next) => {
-//     if (req.isAuthenticated()) {
+app.use((req, res, next) => {
+    if (req.isAuthenticated()) {
         
-//         next();
-//     } else {
-//         res.status(401).redirect("/login")
-//     }
-// })
+        next();
+    } else {
+        res.status(401).redirect("/login")
+    }
+})
 
 
 app.use("/students", studentRoutes);

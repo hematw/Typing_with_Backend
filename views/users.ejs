@@ -1,0 +1,55 @@
+<%- include("partials/head.ejs") %>
+
+  <body>
+    <div class="d-flex justify-content-between">
+      <%- include("partials/dashboard") %>
+        <div class="data-container">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
+              aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+          </div>
+          <div >
+            <h1>
+              <%= title %>
+            </h1>
+            <table class="table table-striped">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Student ID</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Password</th>
+                <th scope="col">Actions</th>
+              </tr>
+              <% data.forEach((record)=> { %>
+                <tr>
+                  <td scope="row">
+                    <%= record.id %>
+                  </td>
+                  <td scope="row">
+                    <%= record.student_id %>
+                  </td>
+                  <td>
+                    <%= record.username%>
+                  </td>
+                  <td>
+                    <%= record.email %>
+                  </td>
+                  <td>
+                    <%= record.password %>
+                  </td>
+                  <td>
+                    <a href="/students/<%= record.id %>?method=PUT" class="btn btn-warning"><i class="bi bi-pen"></i></a>
+                    <a href="/students/<%= record.id %>?method=DELETE" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                  </td>
+                </tr>
+                <% }) %>
+            </table>
+          </div>
+        </div>
+
+    </div>
+  </body>
+
+  </html>

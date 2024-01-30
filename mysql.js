@@ -59,7 +59,7 @@ class MySQLConnector {
 
         this.connection.query(sql, condition, (err, result) => {
             if (err) {
-                console.error("Error on updating table: ", err);
+                console.error("Error on updating table: ", err.message);
             }
 
             callback(err, result)

@@ -4,43 +4,78 @@
     <div class="d-flex justify-content-between">
       <%- include("partials/dashboard") %>
         <div class="data-container">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
-              aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-          </div>
-          <div >
+          <header>
+            <div class="input-group mb-3 search">
+              <input type="text" class="form-control" placeholder="ex: Type first name"
+                aria-label="Recipient's username" aria-describedby="button-addon2">
+              <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i
+                  class="bi bi-search"></i></button>
+            </div>
+            <a href="/students/new" class="btn btn-primary add-new">Add <i class="bi bi-person"></i></a>
+          </header>
+
+          <div class="table-container">
             <h1>
               <%= title %>
             </h1>
-            <table class="table table-striped">
-              <tr>
-                <th scope="col">No</th>
-                <th scope="col">FirstName</th>
-                <th scope="col">LastName</th>
-                <th scope="col">Class</th>
-                <th scope="col">Actions</th>
-              </tr>
-              <% students.forEach((student)=> { %>
-                <tr>
-                  <td scope="row">
-                    <%= student.id %>
-                  </td>
-                  <td>
-                    <%= student.first_name %>
-                  </td>
-                  <td>
-                    <%= student.last_name %>
-                  </td>
-                  <td>
-                    <%= student.class_id %>
-                  </td>
-                  <td>
-                    <a href="/students/<%= student.id %>?method=PUT"></a>
-                  </td>
-                </tr>
-                <% }) %>
-            </table>
+
+            <% if(msgs.length !==0) { %>
+              <div class="msg">
+                <% msgs.forEach((msg)=> {%>
+                  <p>
+                    <%= msg %>
+                  </p>
+                  <% }) %>
+              </div>
+              <% } %>
+
+                <% if(errors.length !==0) { %>
+                  <div class="err">
+                    <% errors.forEach((err)=> {%>
+                      <p>
+                        <%= err %>
+                      </p>
+                      <% }) %>
+                  </div>
+                  <% } %>
+
+                    <table class="table table-striped">
+                      <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">FirstName</th>
+                        <th scope="col">LastName</th>
+                        <th scope="col">National ID</th>
+                        <th scope="col">Class</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+
+                      <% let a=1; data.forEach((record)=> { %>
+                        <tr>
+                          <td scope="row">
+                            <%= a++ %>
+                          </td>
+                          <td>
+                            <%= record.first_name %>
+                          </td>
+                          <td>
+                            <%= record.last_name %>
+                          </td>
+                          <td>
+                            <%= record.nid %>
+                          </td>
+                          <td>
+                            <%= record.class_id %>
+                          </td>
+                          <td>
+                            <a href="/students/<%= record.id %>?method=PUT" class="btn btn-warning"><i
+                                class="bi bi-pen"></i></a>
+                            <a href="/students/<%= record.id %>?_method=DELETE" class="btn btn-danger"><i
+                                class="bi bi-trash"></i></a>
+                          </td>
+                        </tr>
+                        <% }) %>
+                    </table>
+                    <%- include("partials/pagination") %>
           </div>
         </div>
 
