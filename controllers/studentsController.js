@@ -17,12 +17,18 @@ const getStudent = (req, res) => {
 const getAllStudents = (req, res) => {
     dbConn.read(table, {}, (err, result) => {
         if (err) {
-            res.status(500).json(err);
+            return res.status(500).render("students", { errors: err });
         }
         if (result.length == 0) {
-            return res.status(404).json({ err: "Not Found" })
+            return res.status(404).render("students", { errors: err })
         }
-        res.status(200).render("students", { students: result, title: "Students", user: req.user });
+        res.status(200).render("students", {
+            data: result,
+            title: "Students",
+            logedUser: req.user,
+            errors: req.flash("err"),
+            msgs: req.flash("msg")
+        });
     })
 }
 
@@ -56,18 +62,26 @@ const updateStudent = (req, res) => {
 }
 
 const deleteStudent = (req, res) => {
-    const data = req.body;
     const condition = { id: req.params.id };
 
 
     dbConn.delete(table, condition, (err, result) => {
         if (err) {
-            res.status(500).json(err);
+            if (err.errno === 1451) {
+                req.flash("err", `You can't Remove this record beacause there is other related data!`);
+                return res.status(302).redirect("/students");
+            }
+
+            req.flash("err", `Internal server error!`);
+            return res.status(500).redirect("/students");
         }
+
         if (result.affectedRows == 0) {
-            return res.status(404).json({ err: "Not Found" })
+            req.flash("err", `Record not Found! `);
+            return res.status(404).redirect("/students");
         }
-        res.status(200).json({ message: "Students deleted successfully!" })
+        req.flash("msg", "Student deleted successfully!");
+        res.status(302).redirect("/students");
     })
 }
 
