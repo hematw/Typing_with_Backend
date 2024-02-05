@@ -1,5 +1,14 @@
 <div class="sidebar">
     <ul>
+        <li>
+            <div class="dropdown">
+                <button class="dropbtn"><i class="bi bi-globe-europe-africa"></i><%= lang %></button>
+                <div class="dropdown-content">
+                    <a href="./setLanguage/en"><i class="fi fi-gb"></i>English</a>
+                    <a href="./setLanguage/fa"><i class="fi fi-af"></i>فارسی</a>
+                </div>
+            </div>
+        </li>
         <li class="logo">
             <a href="/">
                 <span class="icon"><i class="bi bi-box-fill"></i></span>
@@ -9,37 +18,49 @@
         <li>
             <a href="/students">
                 <span class="icon"><i class="bi bi-backpack"></i></span>
-                <span class="text">Students</span>
+                <span class="text">
+                    <%= students %>
+                </span>
             </a>
         </li>
         <li>
             <a href="/users">
                 <span class="icon"><i class="bi bi-people"></i></span>
-                <span class="text">Users</span>
+                <span class="text">
+                    <%= users %>
+                </span>
             </a>
         </li>
         <li>
             <a href="/texts">
                 <span class="icon"><i class="bi bi-card-text"></i></span>
-                <span class="text">Texts</span>
+                <span class="text">
+                    <%= texts %>
+                </span>
             </a>
         </li>
         <li>
             <a href="/records">
                 <span class="icon"><i class="bi bi-clock-history"></i></span>
-                <span class="text">Records</span>
+                <span class="text">
+                    <%= records %>
+                </span>
             </a>
         </li>
         <li>
             <a href="/class">
                 <span class="icon"><i class="bi bi-book"></i></span>
-                <span class="text">classes</span>
+                <span class="text">
+                    <%= classes %>
+                </span>
             </a>
         </li>
         <li>
             <a href="/settings">
                 <span class="icon"><i class="bi bi-gear"></i></span>
-                <span class="text">Settings</span>
+                <span class="text">
+                    <%= settings %>
+                </span>
             </a>
         </li>
         <div class="logout">
@@ -51,17 +72,19 @@
                         </div>
                     </span>
                     <span class="text">
-                        <%#= logedUser.username %>
-                        <%# if(logedUser.role_id==1) { %>
-                            <span>🔑</span>
-                        <%# } %>
+                        <%= logedUser.username %>
+                            <% if(logedUser.role_id==1) { %>
+                                <span>🔑</span>
+                                <% } %>
                     </span>
                 </a>
             </li>
             <li>
                 <a href="/logout">
                     <span class="icon"><i class="bi bi-box-arrow-right"></i></span>
-                    <span class="text">Logout</span>
+                    <span class="text">
+                        <%= logout %>
+                    </span>
                 </a>
             </li>
         </div>

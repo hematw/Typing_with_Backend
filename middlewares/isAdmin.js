@@ -1,4 +1,4 @@
-const isAdmin = (options = {}) => {
+module.exports = function isAdmin(options = {}) {
     return (req, res, next) => {
         console.log(req.user)
         if (req.user && req.user.role === 'admin') {

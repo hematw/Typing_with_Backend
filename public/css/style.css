@@ -71,6 +71,7 @@ h1 {
 }
 
 .pagination a {
+    background: #dbeffa;
     color: black;
     float: left;
     padding: 8px 16px;
@@ -90,4 +91,58 @@ h1 {
     background-color: #127bb7;
     color: white;
     border: 1px solid #127bb7;
+}
+
+.prev,
+.next {
+    background-color: #127bb7;
+    color: #bde4fa;
+}
+
+caption {
+    display: table-caption;
+    text-align: center;
+}
+
+.dropdown {
+    position: relative;
+    margin: 0 16px;
+    min-width: 120px;
+}
+
+.dropdown-content {
+    position: absolute;
+    display: none;
+    z-index: 1;
+    width: 100%;
+    box-shadow: 2px 2px 8px #127bb7;
+}
+
+.dropdown .dropbtn {
+    background-color: #127bb7;
+    color: #fff;
+    border-radius: 4px;
+    border: none;
+    padding: 6px;
+    width: 100%;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown a {
+    display: block;
+    background-color: #fff;
+    width: 100%;
+    margin: 0;
+    padding: 8px 12px;
+}
+
+.dropdown a:hover {
+    background-color: #eee;
+}
+
+.dropdown i {
+    margin-right: 8px;
 }

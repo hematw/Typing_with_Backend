@@ -19,11 +19,36 @@ const getAllStudents = (req, res) => {
         if (err) {
             return res.status(500).render("students", { errors: err });
         }
-        if (result.length == 0) {
-            return res.status(404).render("students", { errors: err })
+
+        let pageSize = 10;
+        let page = parseInt(req.query.page) || 1;
+        let totalPages = Math.ceil(result.length / pageSize);
+        let startIndex = (page - 1) * pageSize;
+        let endIndex = page * pageSize;
+        let paginatedResult = result.slice(startIndex, endIndex);
+
+        if (paginatedResult.length === 0 && page > 1) {
+            return res.redirect(`/students?page=${totalPages}`);
         }
         res.status(200).render("students", {
-            data: result,
+            students: req.t("students"),
+            users: req.t("users"),
+            texts: req.t("texts"),
+            records: req.t("records"),
+            settings: req.t("settings"),
+            no: req.t("no"),
+            fName: req.t("fName"),
+            lName: req.t("lName"),
+            classes: req.t("classes"),
+            actions: req.t("actions"),
+            add: req.t("add"),
+            sclass: req.t("class"),
+            logout: req.t("logout"),
+            lang: req.t("lang"),
+            data: paginatedResult,
+            totalPages: totalPages,
+            startNum: startIndex,
+            currentPage: page,
             title: "Students",
             logedUser: req.user,
             errors: req.flash("err"),
@@ -33,17 +58,20 @@ const getAllStudents = (req, res) => {
 }
 
 const createStudent = (req, res) => {
-    const data = req.body;
+    if (req.method === "GET") {
+        res.render("form", { title: "New Student" })
+    } else if (req.method === "POST") {
+        const data = req.body;
 
-    dbConn.create(table, data, (err, result) => {
-        if (err) {
-            res.status(500).json(err);
-        }
-        if (result.affectedRows == 0) {
-            return res.status(404).json({ err: "Not Found" })
-        }
-        res.status(200).json({ message: "Student created successfully!" })
-    })
+        dbConn.create(table, data, (err, result) => {
+            if (err) {
+                req.flash("err", err.message)
+                res.status(500).redirect("/students");
+            }
+            req.flash("msg", "Student Added successfully!")
+            res.status(200).redirect("/students")
+        })
+    }
 }
 
 const updateStudent = (req, res) => {

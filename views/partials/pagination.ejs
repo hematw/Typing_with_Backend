@@ -1,10 +1,18 @@
 <div class="pagination">
-    <a href="#">&laquo;</a>
-    <a href="#">1</a>
-    <a href="#" class="active">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <a href="#">5</a>
-    <a href="#">6</a>
-    <a href="#">&raquo;</a>
+    <% if (currentPage > 1) { %>
+        <a href="/students?page=<%= currentPage - 1 %>"><i class="bi bi-arrow-left-circle-fill"></i> </a>
+        <% } %>
+        
+        <a href="/students?page=1" class="<%= 1 === currentPage ? 'active' : '' %>">1</a>
+        <% let startPage = Math.max(2, currentPage - 2); %>
+        <% let endPage = Math.min(startPage + 3, totalPages-1); %>
+        
+        <% for (let i = startPage; i <= endPage; i++) { %>
+            <a href="/students?page=<%= i %>" class="<%= i === currentPage ? 'active' : '' %>"><%= i %></a>
+            <% } %>
+            
+            <a href="/students?page=<%= totalPages %>" class="<%= totalPages === currentPage ? 'active' : '' %>"><%= totalPages %></a>
+    <% if (currentPage < totalPages) { %>
+        <a href="/students?page=<%= currentPage + 1 %>"><i class="bi bi-arrow-right-circle-fill"></i></a>
+    <% } %>
 </div>

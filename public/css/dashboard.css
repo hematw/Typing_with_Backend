@@ -1,6 +1,5 @@
 /* Dashboard Styles */
 .sidebar {
-    width: 60px;
     width: 260px;
     height: 100vh;
     background: #fff;
@@ -23,6 +22,7 @@
 .sidebar ul li {
     list-style: none;
     text-transform: uppercase;
+    font-size: 1em;
 }
 
 .sidebar ul li a {

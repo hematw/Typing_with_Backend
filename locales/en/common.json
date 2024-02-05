@@ -1,0 +1,23 @@
+{
+    "students": "Students",
+    "users": "USers",
+    "texts": "Texts",
+    "records": "Records",
+    "classes": "classes",
+    "settings": "Settigns",
+    "logout": "Logout",
+    "no":"No",
+    "fName": "First Name",
+    "lName": "Last Name",
+    "class": "Class",
+    "actions": "Actions",
+    "add": "Add",
+    "signin": "Sign In",
+    "email": "Email",
+    "password": "Password",
+    "forgot": "Forgot your Password?",
+    "wellcome": "Wellcome",
+    "loginMsg": "Type your Email and Password",
+    "lang": "Language"
+
+}
