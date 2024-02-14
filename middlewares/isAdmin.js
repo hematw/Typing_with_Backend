@@ -1,10 +1,9 @@
 module.exports = function isAdmin(options = {}) {
     return (req, res, next) => {
-        console.log(req.user)
-        if (req.user && req.user.role === 'admin') {
+        if (req.user && req.user.role_id === 1) {
             return next();
         } else {
-            const failureRedirect = options.failureRedirect || '/login';
+            const failureRedirect = options.failureRedirect || '/typing';
             return res.redirect(failureRedirect);
         }
     };

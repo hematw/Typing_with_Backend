@@ -2,10 +2,9 @@ const express = require('express');
 const studentRoutes = require("./routes/studentRoutes");
 const userRoutes = require("./routes/userRoutes");
 const textRoutes = require("./routes/textRoutes");
+const scoreRoutes = require("./routes/scoreRoutes")
 const bcrypt = require("bcrypt");
 const dbConn = require('./config/db');
-const passport = require("passport");
-const LocalStrategy = require("passport-local");
 const session = require("express-session");
 const methodOverride = require("./middlewares/methodOverride");
 const flash = require("connect-flash");
@@ -13,6 +12,7 @@ const isAdmin = require("./middlewares/isAdmin")
 const i18next = require("i18next");
 const i18nextMiddleware = require("i18next-http-middleware");
 const Backend = require("i18next-fs-backend");
+const passportConfig = require('./middlewares/passportConfig');
 
 const app = express();
 
@@ -31,14 +31,13 @@ i18next
     .init({
         fallbackLng: 'en',
         preload: ['en', 'fa'],
-        ns: ['common'], 
+        ns: ['common'],
         backend: {
             loadPath: __dirname + `/locales/{{lng}}/{{ns}}.json`,
         },
     });
 
 app.use(i18nextMiddleware.handle(i18next));
-
 
 app.use(session({
     secret: process.env.SESSION_SEC,
@@ -49,30 +48,8 @@ app.use(session({
     },
 }))
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-
-passport.use(new LocalStrategy({
-    usernameField: "email"
-}, (username, password, done) => {
-    dbConn.read("users", { email: username }, (err, user) => {
-        if (err) { return done(err) }
-        if (user.length == 0) { return done(null, false) }
-        if (password !== user[0].password) { return done(null, false) }
-        return done(null, user)
-    })
-}))
-
-passport.serializeUser((user, done) => {
-    done(null, user[0].id)
-});
-
-passport.deserializeUser((id, done) => {
-    dbConn.read("users", { id }, (err, user) => {
-        done(err, user[0]);
-    })
-});
+app.use(passportConfig.initialize());
+app.use(passportConfig.session());
 
 app.get('/setLanguage/:lang', (req, res) => {
     const { lang } = req.params;
@@ -93,7 +70,7 @@ app.get("/login", (req, res) => {
     if (req.isAuthenticated()) {
         res.redirect("/");
     } else {
-        res.render("login", { 
+        res.render("login", {
             title: req.t(("signin")),
             wellcomeMsg: req.t("wellcome"),
             loginMsg: req.t("loginMsg"),
@@ -106,16 +83,18 @@ app.get("/login", (req, res) => {
 });
 
 app.post("/login",
-    passport.authenticate("local", { failureRedirect: "/login" })
+    passportConfig.authenticate("local", { failureRedirect: "/login" })
     ,
     (req, res, next) => {
         req.i18n.changeLanguage(req.session.lang || "en");
         next();
     },
     (req, res) => {
-        res.status(302).redirect("/students");
+        res.status(302).redirect("/");
     }
 )
+
+
 
 app.get("/logout", (req, res) => {
     req.logOut(() => {
@@ -123,19 +102,64 @@ app.get("/logout", (req, res) => {
     });
 });
 
-app.get("/", (req, res) => {
-    if (req.isAuthenticated()) {
-        res.render("home", { title: "Home", logedUser: req.user })
-    }
-    else {
-        res.status(401).redirect("/login")
-    }
-})
 
 app.use((req, res, next) => {
+    req.isAuthenticated() ? next() : res.status(401).redirect("/login")
+})
+
+
+
+app.get("/typing", (req, res) => {
+    let subQuery = `SELECT MAX(level_id) AS maxLevel 
+    FROM scores 
+    WHERE user_id = ${req.user.id}`
+
+    let sql = `
+    SELECT texts.*, maxLevel
+    FROM texts
+    CROSS JOIN (${subQuery}) AS subquery
+    WHERE level_id = subquery.maxLevel
+    ORDER BY RAND()
+    LIMIT 1
+    `;
+
+    dbConn.query(sql, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+
+        res.render("typing", {
+            data: result[0],
+            user: req.user
+        })
+    })
+
+})
+
+app.use("/scores", scoreRoutes);
+
+app.use(isAdmin())
+
+app.get("/", (req, res) => {
     if (req.isAuthenticated()) {
-        next();
-    } else {
+        res.render("home",
+            {
+                title: "Home",
+                logedUser: req.user,
+                students: req.t("students"),
+                users: req.t("users"),
+                texts: req.t("texts"),
+                records: req.t("records"),
+                settings: req.t("settings"),
+                classes: req.t("classes"),
+                sclass: req.t("class"),
+                logout: req.t("logout"),
+                lang: req.t("lang"),
+                wellcomeMsg: req.t("wellcome")
+            }
+        )
+    }
+    else {
         res.status(401).redirect("/login")
     }
 })

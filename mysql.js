@@ -65,6 +65,16 @@ class MySQLConnector {
             callback(err, result)
         })
     }
+
+    query(sql, callback) {
+        this.connection.query(sql, (err, result) => {
+            if (err) {
+                console.error("Error on executing query: ", err.message);
+            }
+
+            callback(err, result)
+        })
+    }
 }
 
 module.exports = MySQLConnector;

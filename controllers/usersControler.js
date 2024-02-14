@@ -22,8 +22,27 @@ const getAllUers = (req, res) => {
         if (user.length == 0) {
             return res.status(404).json({ err: "Not Found" })
         }
-        console.log(req.user)
-        res.status(200).render("users", { data: user, title: "Users", logedUser: req.user});
+        res.status(200).render("users",
+            {
+                data: user,
+                title: req.t("users"),
+                logedUser: req.user,
+                lang: req.t("lang"),
+                students: req.t("students"),
+                users: req.t("users"),
+                texts: req.t("texts"),
+                records: req.t("records"),
+                settings: req.t("settings"),
+                classes: req.t("classes"),
+                logout: req.t("logout"),
+                add: req.t("add"),
+                username: req.t("username"),
+                email: req.t("email"),
+                password: req.t("password"),
+                errors: req.flash("err"),
+                msgs: req.flash("msg")
+            }
+        );
     })
 }
 

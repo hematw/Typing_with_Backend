@@ -4,52 +4,112 @@
     <div class="d-flex justify-content-between">
       <%- include("partials/dashboard") %>
         <div class="data-container">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
-              aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-          </div>
-          <div >
+          <header>
+            <div class="input-group mb-3 search">
+              <input type="text" class="form-control" placeholder="ex: Type first name"
+                aria-label="Recipient's username" aria-describedby="button-addon2">
+              <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i
+                  class="bi bi-search"></i></button>
+            </div>
+            <button class="btn btn-primary add-new">
+              <%= add %><i class="bi bi-person"></i>
+            </button>
+          </header>
+
+          <div>
             <h1>
               <%= title %>
             </h1>
-            <table class="table table-striped">
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Student ID</th>
-                <th scope="col">Username</th>
-                <th scope="col">Email</th>
-                <th scope="col">Password</th>
-                <th scope="col">Actions</th>
-              </tr>
-              <% data.forEach((record)=> { %>
-                <tr>
-                  <td scope="row">
-                    <%= record.id %>
-                  </td>
-                  <td scope="row">
-                    <%= record.student_id %>
-                  </td>
-                  <td>
-                    <%= record.username%>
-                  </td>
-                  <td>
-                    <%= record.email %>
-                  </td>
-                  <td>
-                    <%= record.password %>
-                  </td>
-                  <td>
-                    <a href="/students/<%= record.id %>?method=PUT" class="btn btn-warning"><i class="bi bi-pen"></i></a>
-                    <a href="/students/<%= record.id %>?method=DELETE" class="btn btn-danger"><i class="bi bi-trash"></i></a>
-                  </td>
-                </tr>
-                <% }) %>
-            </table>
+            <% if(msgs.length !==0) { %>
+              <div class="msg">
+                <% msgs.forEach((msg)=> {%>
+                  <p>
+                    <%= msg %>
+                  </p>
+                  <% }) %>
+              </div>
+              <% } %>
+
+                <% if(errors.length !==0) { %>
+                  <div class="err">
+                    <% errors.forEach((err)=> {%>
+                      <p>
+                        <%= err %>
+                      </p>
+                      <% }) %>
+                  </div>
+                  <% } %>
+
+                    <table class="table table-striped">
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Student ID</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Password</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                      <% data.forEach((record)=> { %>
+                        <tr>
+                          <td scope="row">
+                            <%= record.id %>
+                          </td>
+                          <td scope="row">
+                            <%= record.student_id %>
+                          </td>
+                          <td>
+                            <%= record.username%>
+                          </td>
+                          <td>
+                            <%= record.email %>
+                          </td>
+                          <td>
+                            <%= record.password %>
+                          </td>
+                          <td>
+                            <a href="/users/<%= record.id %>?method=PUT" class="btn btn-warning"><i
+                                class="bi bi-pen"></i></a>
+                            <a href="/users/<%= record.id %>?method=DELETE" class="btn btn-danger"><i
+                                class="bi bi-trash"></i></a>
+                          </td>
+                        </tr>
+                        <% }) %>
+                    </table>
           </div>
         </div>
-
     </div>
+
+    <!-- Form -->
+    <div class="d-flex justify-content-center  modal">
+      <div class="login-container" id="container">
+        <div class="form-container sign-in">
+          <form action="/students" method="POST">
+            <h1>
+              <%= add +" " + users %></h1>
+            <select name=" class_id" id="" class="input">
+                <option value="1">1</option>
+                </select>
+                <input type="text" placeholder="<%= username %>" name="first_name" class="input">
+                <input type="text" placeholder="<%= email %>" name="first_name" class="input">
+                <input type="text" placeholder="<%= password %>" name="last_name" class="input">
+                <button type="submit">
+                  <%= add %>
+                </button>
+          </form>
+        </div>
+        <div class="toggle-container">
+          <button id="close-btn"><i class="bi bi-x-lg"></i></button>
+          <div class="toggle">
+            <div class="toggle-panel toggle-right">
+              <h1>HWS</h1>
+              <p>Enter User info</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/form.js"></script>
+
   </body>
 
   </html>

@@ -9,7 +9,10 @@ const typingText = document.querySelector(".typing-text p"),
     levelSelector = document.querySelector("#level-selector"),
     langSelector = document.querySelector("#lang-selector"),
     tryAgain = document.querySelector("#try-again"),
-    nextButton = document.querySelector("#next")
+    nextButton = document.querySelector("#next");
+    const mainPara= document.querySelector(".main-para").textContent;
+    const form = document.getElementById("score-form")
+
 
 let charIndex = mistakes = 0,
     isTyping = false,
@@ -21,11 +24,12 @@ let charIndex = mistakes = 0,
     initialWidth = 0,
     chars;
 
+
 //  this function takes a paragraph and add in DOM 
 function randomParagraph(para) {
     const randomInd = Math.floor(Math.random() * para.length);
     typingText.innerHTML = "";
-    para[randomInd].split("").forEach((letter) => {
+    para.split("").forEach((letter) => {
         typingText.innerHTML += `<span>${letter}</span>`
     });
     document.addEventListener("keydown", () => inputField.focus());
@@ -37,11 +41,7 @@ function randomParagraph(para) {
 // Takes level an check local strorage for Language
 // and then call randomParagraph
 function paraChanger(level) {
-    let lang = localStorage.getItem("lang");
-    let paraCollection = lang === "fa" ?
-        [fa1, fa2, fa3, fa4, fa5, fa6] :
-        [en1, en2, en3, en4, en5, en6];
-    randomParagraph(paraCollection[level - 1]);
+    randomParagraph(mainPara);
 }
 
 // Checks if modal is not active
@@ -50,6 +50,10 @@ function showResult() {
         mistakeTag.textContent = mistakes;
         wpmTag.textContent = wpm;
         modal.classList.add("active");
+        const scoreInput = document.querySelector("input[name='score'");
+        console.log(mistakes, charIndex)
+        let percentage = 100 -((mistakes * 100) / charIndex);
+        scoreInput.value = percentage;
         failOrPass();
         setSelected(levelSelector, localStorage.getItem("level"));
     }
@@ -64,7 +68,6 @@ function failOrPass() {
         let currentLevel = Number(localStorage.getItem("level"));
         localStorage.setItem("level", currentLevel + 1);
         localStorage.setItem("maxLevel", currentLevel + 1);
-        nextButton.removeAttribute("hidden");
         tryAgain.setAttribute("hidden", "hidden");
     }
 }
@@ -167,11 +170,6 @@ langSelector.addEventListener("change", function () {
 inputField.addEventListener("input", initTyping);
 
 tryAgain.addEventListener("click", resetGame);
-
-nextButton.addEventListener("click", () => {
-    paraChanger(localStorage.getItem("level"));
-    resetGame();
-})
 
 setSelected(langSelector, localStorage.getItem("lang"));
 setSelected(levelSelector, localStorage.getItem("level"));
