@@ -1,10 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
+@import url(./fontiran.css);
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html[dir="rtl"] body {
+    font-family: IRANSans, sans-serif !important;
 }
 
 body {

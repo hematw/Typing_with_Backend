@@ -1,4 +1,4 @@
-const dbConn = require("../config/db");
+const sequelize = require("../config/db");
 const { Router } = require("express");
 const { saveScore } = require("../controllers/scoreController");
 

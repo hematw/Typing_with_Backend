@@ -13,6 +13,7 @@ const i18next = require("i18next");
 const i18nextMiddleware = require("i18next-http-middleware");
 const Backend = require("i18next-fs-backend");
 const passportConfig = require('./middlewares/passportConfig');
+const sequelize = require('./config/db');
 
 const app = express();
 
@@ -24,6 +25,8 @@ app.use(methodOverride('_method'));
 app.use(flash())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+sequelize.sync().then(r => console.log("All Models successfully synced. 🙄"))
 
 i18next
     .use(i18nextMiddleware.LanguageDetector)
@@ -173,7 +176,7 @@ app.use((req, res) => {
     res.status(404).render("notfound", { title: "Not Found!" });
 })
 
-const port = 3000 || process.env.PORT;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server is runnig in port ${port}`);
 });

@@ -1,20 +1,17 @@
-require("dotenv").config();
-const MySQLConnector = require("../mysql");
+require("dotenv").config()
+const { Sequelize } = require("sequelize");
 
-const dbConfig = {
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASS,
-    database: process.env.MYSQL_DB
-};
+const { MYSQL_DB, MYSQL_USER, MYSQL_PASS, MYSQL_HOST } = process.env;
 
-const dbConn = new MySQLConnector(dbConfig);
-dbConn.connect((err) => {
-    if (err) {
-        console.log(err);
-        return
-    }
-    console.log("Database connected successfully! 🚀")
-});
+const sequelize = new Sequelize(MYSQL_DB, MYSQL_USER, MYSQL_PASS, {
+    dialect: "mysql",
+    host: MYSQL_HOST,
+    logging:false,
+})
 
-module.exports = dbConn;
+sequelize.authenticate()
+    .then(r => console.log("Database connected successfully! 🚀"))
+    .catch(e => console.log(e))
+
+
+module.exports = sequelize;
