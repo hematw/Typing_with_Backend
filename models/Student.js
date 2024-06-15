@@ -1,5 +1,6 @@
-const sequelize = require("../config/db");
-const { Model, DataType, DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
+const { Model, DataTypes } = require("sequelize");
+const Class = require("./class");
 
 
 class Student extends Model { }
@@ -21,7 +22,11 @@ Student.init({
     },
     classId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references:{
+            model: Class,
+            key: 'id'
+        }
     }
 }, {
     sequelize,

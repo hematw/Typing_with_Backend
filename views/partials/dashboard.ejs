@@ -72,8 +72,8 @@
                         </div>
                     </span>
                     <span class="text">
-                        <%= logedUser.username %>
-                            <% if(logedUser.role_id==1) { %>
+                        <%= logedUser?.username %>
+                            <% if(logedUser?.role_id==1) { %>
                                 <span>🔑</span>
                                 <% } %>
                     </span>

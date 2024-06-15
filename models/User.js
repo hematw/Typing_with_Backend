@@ -1,6 +1,7 @@
 const { Sequelize, Model, DataTypes } = require("sequelize")
-const sequelize = require("../config/db");
+const sequelize = require("../config/database");
 const Student = require("./Student");
+const Role = require("./Role");
 
 const User = sequelize.define('User', {
     id: {
@@ -28,7 +29,8 @@ const User = sequelize.define('User', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: Role
+            model: Role,
+            key: 'id'
         }
     },
     password: {

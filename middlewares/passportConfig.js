@@ -1,16 +1,17 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const dbConn = require("../config/db");
+const { User } = require("../models/associations");
 
 passport.use(new LocalStrategy({
     usernameField: "email"
 }, (username, password, done) => {
-    dbConn.read("users", { email: username }, (err, user) => {
-        if (err) { return done(err) }
-        if (user.length == 0) { return done(null, false) }
-        if (password !== user[0].password) { return done(null, false) }
-        return done(null, user)
-    })
+    User.findOne({ email: username })
+        .then(user => {
+            if (!user) return done(null, false);
+            if (password !== user[0].password) return done(null, false);
+            return done(null, user)
+        })
+        .catch(err => done(err))
 }))
 
 passport.serializeUser((user, done) => {
@@ -18,9 +19,9 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    dbConn.read("users", { id }, (err, user) => {
-        done(err, user[0]);
-    })
+    User.findOne({ id })
+        .then(user => done(null, user))
+        .catch(err => done(err, null))
 });
 
 module.exports = passport;

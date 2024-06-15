@@ -1,17 +1,18 @@
-const dbConn = require("../config/db")
+const dbConn = require("../config/database")
+const { User } = require("../models/associations")
 
 let table = "users";
 
 const getUser = (req, res) => {
-    dbConn.read(table, { "id": req.params.id }, (err, user) => {
-        if (err) {
-            res.status(500).json(err);
+    User.findOne({ "id": req.params.id })
+        .then(user => {
+            if (!user) {
+                return res.status(404).json({ err: "Not Found" })
+            }
+            res.status(200).json(user)
         }
-        if (user.length == 0) {
-            return res.status(404).json({ err: "Not Found" })
-        }
-        res.status(200).json(user);
-    })
+        )
+        .catch(err => res.status(500).json(err))
 }
 
 const getAllUers = (req, res) => {

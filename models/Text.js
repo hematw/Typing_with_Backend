@@ -1,9 +1,9 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config/db");
+const sequelize = require("../config/database");
 const Level = require("./Level");
 
 
-const Text = sequelize.define('Score', {
+const Text = sequelize.define('Text', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -14,7 +14,7 @@ const Text = sequelize.define('Score', {
         allowNull: false,
         references: {
             model: Level,
-            key: id
+            key: 'id'
         }
     },
     content: {

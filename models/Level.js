@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../config/db");
+const sequelize = require("../config/database");
 
 class Level extends Model {}
 
@@ -17,7 +17,5 @@ Level.init({
     sequelize,
     modelName: 'Level'
 })
-
-// module.exports = Level;
 
 module.exports = Level;

@@ -1,4 +1,4 @@
-const dbConn = require("../config/db")
+const dbConn = require("../config/database")
 
 let table = "texts";
 

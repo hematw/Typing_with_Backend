@@ -6,17 +6,21 @@ const User = require("./User");
 const Class = require("./class");
 const Text = require("./Text");
 
-Student.hasOne(User, { foreignKey: 'id' })
-User.belongsTo(Student, { foreignKey: 'id' })
+Student.hasOne(User, { foreignKey: 'studentId' })
+User.belongsTo(Student, { foreignKey: 'studentId' })
 
-User.hasMany(Role, { foreignKey: 'id' })
-Role.belongsToMany(User, { foreignKey: 'id' })
+Role.hasMany(User, { foreignKey: 'roleId' })
+User.belongsTo(Role, { foreignKey: 'roleId' })
 
-Score.belongsTo(Level, { foreignKey: 'id' })
-Level.hasMany(Score, { foreignKey: 'id' })
+Level.hasMany(Score, { foreignKey: 'levelId' })
+Score.belongsTo(Level, { foreignKey: 'levelId' })
 
-Class.hasMany(Student, { foreignKey: 'id' })
-Student.belongsTo(Class, { foreignKey: 'id' })
+Class.hasMany(Student, { foreignKey: 'classId' })
+Student.belongsTo(Class, { foreignKey: 'classId' })
 
-Text.belongsTo(Level, { foreignKey: 'id' })
-Level.hasMany(Text, {foreignKey: 'id'})
+Level.hasMany(Text, { foreignKey: 'levelId' })
+Text.belongsTo(Level, { foreignKey: 'levelId' })
+
+module.exports = {
+    Student, User, Score, Role, Level, Class, Text
+}
