@@ -12,6 +12,8 @@ const Class = sequelize.define('Class', {
         type: DataTypes.STRING,
         allowNull: false
     }
+}, {
+    paranoid: true
 })
 
 module.exports = Class

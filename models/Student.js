@@ -23,14 +23,15 @@ Student.init({
     classId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references:{
+        references: {
             model: Class,
             key: 'id'
         }
     }
 }, {
     sequelize,
-    modelName: 'Student'
+    modelName: 'Student',
+    paranoid: true
 })
 
 module.exports = Student;

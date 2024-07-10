@@ -1,10 +1,15 @@
+const { where, INTEGER } = require("sequelize");
 const dbConn = require("../config/database")
 const { User } = require("../models/associations")
 
 let table = "users";
 
 const getUser = (req, res) => {
-    User.findOne({ "id": req.params.id })
+    User.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
         .then(user => {
             if (!user) {
                 return res.status(404).json({ err: "Not Found" })
@@ -16,70 +21,80 @@ const getUser = (req, res) => {
 }
 
 const getAllUers = (req, res) => {
-    dbConn.read(table, {}, (err, user) => {
-        if (err) {
-            res.status(500).json(err);
-        }
-        if (user.length == 0) {
-            return res.status(404).json({ err: "Not Found" })
-        }
-        res.status(200).render("users",
-            {
-                data: user,
-                title: req.t("users"),
-                logedUser: req.user,
-                lang: req.t("lang"),
-                students: req.t("students"),
-                users: req.t("users"),
-                texts: req.t("texts"),
-                records: req.t("records"),
-                settings: req.t("settings"),
-                classes: req.t("classes"),
-                logout: req.t("logout"),
-                add: req.t("add"),
-                username: req.t("username"),
-                email: req.t("email"),
-                password: req.t("password"),
-                errors: req.flash("err"),
-                msgs: req.flash("msg")
+    User.findAll()
+        .then(users => {
+            if (!users) {
+                return res.status(404).json({ err: "Not Found" })
             }
-        );
-    })
+            res.status(200).render("users",
+                {
+                    data: users,
+                    title: req.t("users"),
+                    logedUser: req.user,
+                    lang: req.t("lang"),
+                    students: req.t("students"),
+                    users: req.t("users"),
+                    texts: req.t("texts"),
+                    records: req.t("records"),
+                    settings: req.t("settings"),
+                    classes: req.t("classes"),
+                    logout: req.t("logout"),
+                    add: req.t("add"),
+                    username: req.t("username"),
+                    email: req.t("email"),
+                    password: req.t("password"),
+                    errors: req.flash("err"),
+                    msgs: req.flash("msg")
+                }
+            )
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        })
 }
 
 const createUser = (req, res) => {
-    dbConn.create(table, req.body, (err, user) => {
-        if (err) {
+    req.body= {...req.body, [req.body.studentId]: INTEGER(req.body.studentId)}
+    User.create(req.body)
+        .then(user => {
+            res.status(200).json({ message: "User created successfully!", user })
+        })
+        .catch(err => {
             console.log(err);
             res.status(500).json({ err })
-        }
-        res.status(200).json({ message: "User created successfully!" })
-    })
+        })
 }
 
 const updateUser = (req, res) => {
-    dbConn.update(table, req.body, { id: req.params.id }, (err, result) => {
-        if (err) {
+
+    User.update(req.body, {
+        where: { id: req.params.id }
+    })
+        .then(user => {
+            if (!user) {
+                return res.status(404).json({ err: "Not Found" })
+            }
+            res.status(200).json({ message: "User updated successfully!" })
+        })
+        .catch(err => {
             console.log(err);
             res.status(500).json({ err })
-        }
-        if (result.affectedRows == 0) {
-            return res.status(404).json({ err: "Not Found" })
-        }
-        res.status(200).json({ message: "User updated successfully!" })
-    })
+        })
 }
 
 const deleteUser = (req, res) => {
-    dbConn.delete(table, { id: req.params.id }, (err, result) => {
-        if (err) {
-            console.log(err);
-            res.status(500).json({ err })
+    User.destroy({
+        where: {
+            id: req.params.id
         }
-        if (result.affectedRows == 0) {
+    }).then(user => {
+        if (!user) {
             return res.status(404).json({ err: "Not Found" })
         }
         res.status(200).json({ message: "User deleted successfully!" })
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json({ err })
     })
 }
 

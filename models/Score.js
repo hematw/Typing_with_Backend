@@ -21,6 +21,8 @@ const Score = sequelize.define('Score', {
         type: DataTypes.FLOAT,
         allowNull: false
     }
+}, {
+    paranoid: true
 })
 
 module.exports = Score;

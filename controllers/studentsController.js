@@ -1,10 +1,8 @@
-const dbConn = require("../config/database");
 const { Student } = require("../models/associations")
 
-let table = "students";
 
 const getStudent = (req, res) => {
-    Student.findOne({ "id": req.params.id })
+    Student.findOne({ id: req.params.id })
         .then(student => {
             if (!student) {
                 return res.status(404).json({ err: "Not Found" })
@@ -60,7 +58,9 @@ const getAllStudents = (req, res) => {
 
 const createStudent = (req, res) => {
     if (req.method === "GET") {
-        res.render("form", { title: "New Student" })
+        res.render("form", {
+            title: "New Student"
+        })
     } else if (req.method === "POST") {
         const data = {
             firstName: req.body.first_name,
@@ -82,28 +82,35 @@ const createStudent = (req, res) => {
 }
 
 const updateStudent = (req, res) => {
-    const data = req.body;
-    const condition = { "id": req.params.id }
-
-    Student.update()
-
-    dbConn.update(table, data, condition, (err, result) => {
-        if (err) {
+    Student.update({ where: { 'id': req.params.id } })
+        .then(student => {
+            if (!student) {
+                return res.status(404).json({ err: "Not Found" })
+            }
+            console.log(student)
+            res.status(200).json({ message: "Student updated successfully!" })
+        })
+        .catch(err => {
+            console.log(err)
             res.status(500).json(err);
-        }
-        if (result.affectedRows == 0) {
-            return res.status(404).json({ err: "Not Found" })
-        }
-        res.status(200).json({ message: "Student updated successfully!" })
-    })
+
+        })
 }
 
 const deleteStudent = (req, res) => {
-    const condition = { id: req.params.id };
-
-
-    dbConn.delete(table, condition, (err, result) => {
-        if (err) {
+    Student.destroy({
+        where: { id: req.params.id },
+    })
+        .then(student => {
+            if (!student) {
+                req.flash("err", `Record not Found! `);
+                return res.status(404).redirect("/students");
+            }
+            req.flash("msg", "Student deleted successfully!");
+            res.status(302).redirect("/students");
+            console.log("Student deleted", student)
+        })
+        .catch(err => {
             if (err.errno === 1451) {
                 req.flash("err", `You can't Remove this record beacause there is other related data!`);
                 return res.status(302).redirect("/students");
@@ -111,15 +118,8 @@ const deleteStudent = (req, res) => {
 
             req.flash("err", `Internal server error!`);
             return res.status(500).redirect("/students");
-        }
 
-        if (result.affectedRows == 0) {
-            req.flash("err", `Record not Found! `);
-            return res.status(404).redirect("/students");
-        }
-        req.flash("msg", "Student deleted successfully!");
-        res.status(302).redirect("/students");
-    })
+        })
 }
 
 

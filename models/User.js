@@ -28,6 +28,7 @@ const User = sequelize.define('User', {
     roleId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        defaultValue: 2,
         references: {
             model: Role,
             key: 'id'
@@ -37,6 +38,8 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING,
         allowNull: false
     }
-},)
+}, {
+    paranoid: true
+})
 
 module.exports = User;
