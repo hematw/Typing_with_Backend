@@ -1,9 +1,9 @@
 const { Router } = require("express");
-const { createText, getText, deleteText, updateText } = require("../controllers/textController");
+const { createText, getText, deleteText, updateText, getAllText } = require("../controllers/textController");
 const router = new Router();
 
 router.route("/")
-    .get(getText).post(createText);
+    .get(getAllText).post(createText);
 
 router.route("/:id")
     .get(getText).delete(deleteText).put(updateText);

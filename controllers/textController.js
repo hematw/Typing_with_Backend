@@ -1,12 +1,19 @@
-const dbConn = require("../config/database")
 const { Text } = require("../models/associations")
-
-let table = "texts";
 
 const getText = (req, res) => {
     Text.findOne({ id: req.params.id })
         .then(text => {
             res.status(200).json(result);
+        })
+        .catch(err => {
+            res.status(500).json(err);
+
+        })
+}
+const getAllText = (req, res) => {
+    Text.findAll()
+        .then(texts => {
+            res.status(200).json(texts);
         })
         .catch(err => {
             res.status(500).json(err);
@@ -51,4 +58,4 @@ const deleteText = (req, res) => {
         })
 }
 
-module.exports = { getText, createText, updateText, deleteText }
+module.exports = { getText, createText, updateText, deleteText, getAllText }

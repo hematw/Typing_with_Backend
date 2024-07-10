@@ -17,4 +17,18 @@ function saveScore(req, res) {
         })
 }
 
-module.exports = { saveScore }
+
+function getAllScores(req, res) {
+    Score.findAll()
+        .then(scores => {
+            req.flash("msg", scores);
+            res.json(scores)
+            console.log(scores)
+        })
+        .catch(err => {
+            console.log(err);
+            req.flash("err", err);
+        })
+}
+
+module.exports = { saveScore, getAllScores }

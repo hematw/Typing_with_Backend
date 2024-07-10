@@ -1,5 +1,4 @@
 const express = require('express');
-const studentRoutes = require("./routes/studentRoutes");
 const userRoutes = require("./routes/userRoutes");
 const textRoutes = require("./routes/textRoutes");
 const scoreRoutes = require("./routes/scoreRoutes")
@@ -14,7 +13,7 @@ const i18nextMiddleware = require("i18next-http-middleware");
 const Backend = require("i18next-fs-backend");
 const passportConfig = require('./middlewares/passportConfig');
 const sequelize = require('./config/database');
-const { Student, User, Score, Role, Level, Class, Text } = require('./models/associations');
+const { User, Score, Role, Level, Text } = require('./models/associations');
 
 
 const app = express();
@@ -28,7 +27,7 @@ app.use(flash())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-sequelize.sync({ force: true }).then(r => console.log("All Models successfully synced. 🙄"))
+sequelize.sync().then(r => console.log("All Models successfully synced. 🙄"))
 
 i18next
     .use(i18nextMiddleware.LanguageDetector)
@@ -87,90 +86,82 @@ app.get("/login", (req, res) => {
     }
 });
 
-// app.post("/login",
-//     passportConfig.authenticate("local", { failureRedirect: "/login" })
-//     ,
-//     (req, res, next) => {
-//         req.i18n.changeLanguage(req.session.lang || "en");
-//         next();
-//     },
-//     (req, res) => {
-//         res.status(302).redirect("/");
-//     }
-// )
+app.post("/login",
+    passportConfig.authenticate("local", { failureRedirect: "/login" })
+    ,
+    (req, res, next) => {
+        req.i18n.changeLanguage(req.session.lang || "en");
+        next();
+    },
+    (req, res) => {
+        res.status(302).redirect("/");
+    }
+)
 
 
 
-// app.get("/logout", (req, res) => {
-//     req.logOut(() => {
-//         res.redirect("/login")
-//     });
-// });
+app.get("/logout", (req, res) => {
+    req.logOut(() => res.redirect("/login"));
+});
 
 
-// app.use((req, res, next) => {
-//     req.isAuthenticated() ? next() : res.status(401).redirect("/login")
-// })
+app.use((req, res, next) => {
+    req.isAuthenticated() ? next() : res.status(401).redirect("/login")
+})
 
 
 
 app.get("/typing", (req, res) => {
-    let subQuery = `SELECT MAX(level_id) AS maxLevel 
-    FROM scores 
-    WHERE user_id = ${req.user.id}`
-
-    let sql = `
-    SELECT texts.*, maxLevel
-    FROM texts
-    CROSS JOIN (${subQuery}) AS subquery
-    WHERE level_id = subquery.maxLevel
-    ORDER BY RAND()
-    LIMIT 1
-    `;
-
-    dbConn.query(sql, (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-
-        res.render("typing", {
-            data: result[0],
-            user: req.user
-        })
+    Score.findOne({
+        where: { userId: req.user.id },
+        attributes: [[sequelize.fn('MAX', sequelize.col('levelId')), 'maxLevel']],
     })
-
+        .then(result => {
+            const maxLevel = result.dataValues.maxLevel;
+            Text.findOne({
+                where: {
+                    levelId: maxLevel
+                }
+            }).then(text => {
+                console.log(text.dataValues)
+                res.render("typing", {
+                    data: text,
+                    user: req.user
+                })
+            })
+        })
+        .catch(err => console.log(err))
 })
 
-app.use("/scores", scoreRoutes);
+app.use("/records", scoreRoutes);
 
-// app.use(isAdmin())
+app.use(isAdmin())
 
 app.get("/", (req, res) => {
-    // if (req.isAuthenticated()) {
-    res.render("home",
-        {
-            title: "Home",
-            logedUser: req.user,
-            students: req.t("students"),
-            users: req.t("users"),
-            texts: req.t("texts"),
-            records: req.t("records"),
-            settings: req.t("settings"),
-            classes: req.t("classes"),
-            sclass: req.t("class"),
-            logout: req.t("logout"),
-            lang: req.t("lang"),
-            wellcomeMsg: req.t("wellcome"),
-        }
-    )
-    // }
-    // else {
-    //     res.status(401).redirect("/login")
-    // }
+    if (req.isAuthenticated()) {
+        res.render("home",
+            {
+                title: "Home",
+                logedUser: req.user,
+                typing: req.t("typing"),
+                users: req.t("users"),
+                texts: req.t("texts"),
+                records: req.t("records"),
+                settings: req.t("settings"),
+                classes: req.t("classes"),
+                sclass: req.t("class"),
+                logout: req.t("logout"),
+                lang: req.t("lang"),
+                wellcomeMsg: req.t("wellcome"),
+            }
+        )
+    }
+    else {
+        res.status(401).redirect("/login")
+    }
 })
 
 
-app.use("/students", studentRoutes);
 app.use("/users", userRoutes);
 app.use("/texts", textRoutes);
 

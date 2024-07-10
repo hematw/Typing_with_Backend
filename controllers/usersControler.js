@@ -1,5 +1,3 @@
-const { where, INTEGER } = require("sequelize");
-const dbConn = require("../config/database")
 const { User } = require("../models/associations")
 
 let table = "users";
@@ -32,7 +30,7 @@ const getAllUers = (req, res) => {
                     title: req.t("users"),
                     logedUser: req.user,
                     lang: req.t("lang"),
-                    students: req.t("students"),
+                    typing: req.t("typing"),
                     users: req.t("users"),
                     texts: req.t("texts"),
                     records: req.t("records"),
@@ -54,7 +52,7 @@ const getAllUers = (req, res) => {
 }
 
 const createUser = (req, res) => {
-    req.body= {...req.body, [req.body.studentId]: INTEGER(req.body.studentId)}
+    req.body= {...req.body, [req.body.studentId]: parseInt(req.body.studentId)}
     User.create(req.body)
         .then(user => {
             res.status(200).json({ message: "User created successfully!", user })

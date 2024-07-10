@@ -1,6 +1,5 @@
 const { Sequelize, Model, DataTypes } = require("sequelize")
 const sequelize = require("../config/database");
-const Student = require("./Student");
 const Role = require("./Role");
 
 const User = sequelize.define('User', {
@@ -9,14 +8,6 @@ const User = sequelize.define('User', {
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
-    },
-    studentId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: Student,
-            key: 'id'
-        }
     },
     username: {
         type: DataTypes.STRING,
