@@ -123,9 +123,9 @@ app.get("/typing", (req, res) => {
                     levelId: maxLevel
                 }
             }).then(text => {
-                console.log(text.dataValues)
+                console.log(text?.dataValues)
                 res.render("typing", {
-                    data: text,
+                    data: text?.dataValues,
                     user: req.user
                 })
             })

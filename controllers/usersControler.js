@@ -12,7 +12,27 @@ const getUser = (req, res) => {
             if (!user) {
                 return res.status(404).json({ err: "Not Found" })
             }
-            res.status(200).json(user)
+            res.status(200).render("userEdit",
+                {
+                    data: user,
+                    title: req.t("users"),
+                    logedUser: req.user,
+                    lang: req.t("lang"),
+                    typing: req.t("typing"),
+                    users: req.t("users"),
+                    texts: req.t("texts"),
+                    records: req.t("records"),
+                    settings: req.t("settings"),
+                    classes: req.t("classes"),
+                    logout: req.t("logout"),
+                    update: req.t("update"),
+                    username: req.t("username"),
+                    email: req.t("email"),
+                    password: req.t("password"),
+                    errors: req.flash("err"),
+                    msgs: req.flash("msg")
+                }
+            )
         }
         )
         .catch(err => res.status(500).json(err))

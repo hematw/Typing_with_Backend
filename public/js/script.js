@@ -10,13 +10,13 @@ const typingText = document.querySelector(".typing-text p"),
     langSelector = document.querySelector("#lang-selector"),
     tryAgain = document.querySelector("#try-again"),
     nextButton = document.querySelector("#next");
-    const mainPara= document.querySelector(".main-para").textContent;
-    const form = document.getElementById("score-form")
+const mainPara = document.querySelector(".main-para").textContent;
+const form = document.getElementById("score-form")
 
 
 let charIndex = mistakes = 0,
     isTyping = false,
-    timer, maxTime = 60,
+    timer, maxTime = 10,
     timeLeft = maxTime,
     wpm,
     viewportWidth = window.innerWidth,
@@ -50,9 +50,9 @@ function showResult() {
         mistakeTag.textContent = mistakes;
         wpmTag.textContent = wpm;
         modal.classList.add("active");
-        const scoreInput = document.querySelector("input[name='score'");
+        const scoreInput = document.querySelector("input[name='score']");
         console.log(mistakes, charIndex)
-        let percentage = 100 -((mistakes * 100) / charIndex);
+        let percentage = 100 - ((mistakes * 100) / charIndex);
         scoreInput.value = percentage;
         failOrPass();
         setSelected(levelSelector, localStorage.getItem("level"));
@@ -94,6 +94,7 @@ function initTimer() {
     } else {
         clearInterval(timer);
         showResult();
+        form.submit();
     }
 }
 
@@ -101,15 +102,15 @@ function resetGame() {
     paraChanger(localStorage.getItem("level"));
     tryAgain.removeAttribute("hidden");
     charIndex = mistakes =
-    wpmTag.innerHTML =
-    mistakeTag.innerHTML =
-    initialWidth = 0,
-    isTyping = false,
-    timeLeft = maxTime,
-    timeTag.innerHTML = timeLeft,
-    modal.classList.remove("active"),
-    mistakeList.innerHTML = "",
-    progressBar.style.width = initialWidth + "px";
+        wpmTag.innerHTML =
+        mistakeTag.innerHTML =
+        initialWidth = 0,
+        isTyping = false,
+        timeLeft = maxTime,
+        timeTag.innerHTML = timeLeft,
+        modal.classList.remove("active"),
+        mistakeList.innerHTML = "",
+        progressBar.style.width = initialWidth + "px";
 }
 
 function setSelected(selector, lango) {
@@ -148,7 +149,7 @@ function initTyping() {
                 mistakes++
                 chars[charIndex].classList.add("incorrect");
                 mistakeList.innerHTML +=
-                `<li>Need <span class="correct">${chars[charIndex].innerText}</span> Typed <span class="incorrect">${typedChar}</span></li>`;
+                    `<li>Need <span class="correct">${chars[charIndex].innerText}</span> Typed <span class="incorrect">${typedChar}</span></li>`;
                 mistakeList.scrollTop += 40;
             }
             charIndex++;

@@ -11,7 +11,7 @@
               <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i
                   class="bi bi-search"></i></button>
             </div>
-            <button class="btn btn-primary add-new">
+            <button class="btn btn-primary add-new" onclick="activateEl">
               <%= add %><i class="bi bi-person"></i>
             </button>
           </header>
@@ -67,7 +67,7 @@
                             <%= record.password %>
                           </td>
                           <td>
-                            <a href="/users/<%= record.id %>?_method=PUT" class="btn btn-warning"><i
+                            <a href="/users/<%= record.id %>" class="btn btn-warning"><i
                                 class="bi bi-pen"></i></a>
                             <a href="/users/<%= record.id %>?_method=DELETE" class="btn btn-danger"><i
                                 class="bi bi-trash"></i></a>
@@ -79,6 +79,12 @@
         </div>
     </div>
 
+    <div>
+      <div>
+        <form action="users/<%= %>"></form>
+      </div>
+    </div>
+
     <!-- Form -->
     <div class="d-flex justify-content-center  modal">
       <div class="login-container" id="container">
@@ -86,8 +92,8 @@
           <form action="/users" method="POST">
             <h1>
               <%= add +" " + users %></h1>
-                <select name="studentId" id="" class="input">
-                  <option value="1">1</option>
+                <select name=" studentId" id="" class="input">
+                <option value="1">1</option>
                 </select>
                 <input type="text" placeholder="<%= username %>" name="username" class="input">
                 <input type="text" placeholder="<%= email %>" name="email" class="input">

@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
 
+body{
+    margin: 0;
+}
+
 .header {
     position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
     background: linear-gradient(#0c86bb, #58bbf0);
     color: #fff;
     padding: 6px 16px;
@@ -17,7 +20,7 @@
     height: 6px;
     background-color: rgb(255, 0, 0);
     position: absolute;
-    top: 40px;
+    bottom: 0;
     left: 0
 }
 
@@ -130,7 +133,7 @@ span.incorrect {
     left: 0;
     opacity: 0;
     border-radius: 5px;
-    background: #17A2B8;
+    background: #0c86bb;
     animation: bottomCursor 1s ease-in-out infinite;
 }
 
@@ -150,7 +153,7 @@ span.incorrect {
 
 ::selection {
     color: #fff;
-    background: #17A2B8;
+    background: #0c86bb;
 }
 
 .modal {
@@ -179,6 +182,7 @@ span.incorrect {
     justify-content: center;
     border-radius: 10px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+    padding: 2em 3em;
 }
 
 .result-details button {
@@ -191,7 +195,7 @@ span.incorrect {
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
-    background: #08b3ca;
+    background: #0c86bb;
     transition: transform 0.3s ease;
 }
 

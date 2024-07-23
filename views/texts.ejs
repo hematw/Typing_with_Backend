@@ -16,33 +16,25 @@
                         <table class="table table-striped">
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Student ID</th>
-                                <th scope="col">Username</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Password</th>
+                                <th scope="col">Level</th>
+                                <th scope="col">Content</th>
                                 <th scope="col">Actions</th>
                             </tr>
-                            <% data.forEach((record)=> { %>
+                            <% data.forEach((text)=> { %>
                                 <tr>
                                     <td scope="row">
-                                        <%= record.id %>
+                                        <%= text.id %>
                                     </td>
                                     <td scope="row">
-                                        <%= record.student_id %>
+                                        <%= text.levelId %>
+                                    </td>
+                                    <td scope="row">
+                                        <%= text.content %>
                                     </td>
                                     <td>
-                                        <%= record.username%>
-                                    </td>
-                                    <td>
-                                        <%= record.email %>
-                                    </td>
-                                    <td>
-                                        <%= record.password %>
-                                    </td>
-                                    <td>
-                                        <a href="/students/<%= record.id %>?method=PUT" class="btn btn-warning"><i
+                                        <a href="/texts/<%= text.id %>?method=PUT" class="btn btn-warning"><i
                                                 class="bi bi-pen"></i></a>
-                                        <a href="/students/<%= record.id %>?method=DELETE" class="btn btn-danger"><i
+                                        <a href="/texts/<%= text.id %>?method=DELETE" class="btn btn-danger"><i
                                                 class="bi bi-trash"></i></a>
                                     </td>
                                 </tr>
@@ -51,6 +43,36 @@
                     </div>
                 </div>
 
+        </div>
+        <!-- Form -->
+        <div class="d-flex justify-content-center  modal">
+            <div class="login-container" id="container">
+                <div class="form-container sign-in">
+                    <form action="/users" method="POST">
+                        <h1>
+                            <%= add +" " + users %>
+                        </h1>
+                        <select name=" studentId" id="" class="input">
+                                <option value="1">1</option>
+                                </select>
+                                <input type="text" placeholder="<%= username %>" name="username" class="input">
+                                <input type="text" placeholder="<%= email %>" name="email" class="input">
+                                <input type="text" placeholder="<%= password %>" name="password" class="input">
+                                <button type="submit">
+                                    <%= add %>
+                                </button>
+                    </form>
+                </div>
+                <div class="toggle-container">
+                    <button id="close-btn"><i class="bi bi-x-lg"></i></button>
+                    <div class="toggle">
+                        <div class="toggle-panel toggle-right">
+                            <h1>HWS</h1>
+                            <p>Enter User info</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 

@@ -10,3 +10,12 @@ addBtn.addEventListener("click", ()=> {
 closeBtn.addEventListener("click", ()=> {
     modal.classList.remove("active");
 })
+
+function activateEl(e){
+    console.log(e.target);
+    e.target.classList.add("active");
+}
+
+function deactivateEl(e){
+    e.classList.remove("active");
+}

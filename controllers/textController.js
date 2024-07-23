@@ -3,7 +3,7 @@ const { Text } = require("../models/associations")
 const getText = (req, res) => {
     Text.findOne({ id: req.params.id })
         .then(text => {
-            res.status(200).json(result);
+            res.status(200).json(text);
         })
         .catch(err => {
             res.status(500).json(err);
@@ -13,7 +13,27 @@ const getText = (req, res) => {
 const getAllText = (req, res) => {
     Text.findAll()
         .then(texts => {
-            res.status(200).json(texts);
+            res.status(200).render("texts",
+                {
+                    data: texts,
+                    title: req.t("users"),
+                    logedUser: req.user,
+                    lang: req.t("lang"),
+                    typing: req.t("typing"),
+                    users: req.t("users"),
+                    texts: req.t("texts"),
+                    records: req.t("records"),
+                    settings: req.t("settings"),
+                    classes: req.t("classes"),
+                    logout: req.t("logout"),
+                    add: req.t("add"),
+                    username: req.t("username"),
+                    email: req.t("email"),
+                    password: req.t("password"),
+                    errors: req.flash("err"),
+                    msgs: req.flash("msg")
+                }
+            )
         })
         .catch(err => {
             res.status(500).json(err);

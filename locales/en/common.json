@@ -12,6 +12,7 @@
     "class": "Class",
     "actions": "Actions",
     "add": "Add",
+    "update": "Update",
     "signin": "Sign In",
     "email": "Email",
     "password": "Password",
