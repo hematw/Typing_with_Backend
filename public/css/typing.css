@@ -29,8 +29,8 @@ body{
     padding: 0 10px;
     align-items: flex-start;
     justify-content: center;
-    min-height: 100vh;
     background: #f7f7f7;
+    min-height: calc(100vh - 70px);
 }
 
 .cointainer main {

@@ -1,7 +1,7 @@
 <%- include("partials/head.ejs") %>
 
     <body>
-        <div class="d-flex justify-content-between">
+        <div class=" min-w-100">
             <div class="d-flex justify-content-between">
                 <%- include("partials/dashboard") %>
                     <div class="data-container">
@@ -42,63 +42,33 @@
                                         <% } %>
                                             <table class="table table-striped">
                                                 <tr>
-                                                    <th scope="col">ID</th>
-                                                    <th scope="col">Level</th>
-                                                    <th scope="col">Content</th>
-                                                    <th scope="col">Actions</th>
+                                                    <th scope="col">No</th>
+                                                    <th scope="col">User ID</th>
+                                                    <th scope="col">Level ID</th>
+                                                    <th scope="col">Points</th>
                                                 </tr>
-                                                <% data.forEach((text)=> { %>
+                                                <% data.forEach((score)=> { %>
                                                     <tr>
                                                         <td scope="row">
-                                                            <%= text.id %>
+                                                            <%= score.userId %>
                                                         </td>
                                                         <td scope="row">
-                                                            <%= text.levelId %>
+                                                            <%= score.levelId %>
                                                         </td>
                                                         <td scope="row">
-                                                            <%= text.content %>
+                                                            <%= Math.round(score.point) %>%
                                                         </td>
                                                         <td>
-                                                            <a href="/texts/<%= text.id %>"
-                                                                class="btn btn-warning"><i class="bi bi-pen"></i></a>
-                                                            <a href="/texts/<%= text.id %>?_method=DELETE"
-                                                                class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                                                            <a href="/records/<%= score.id %>?_method=DELETE" class="btn btn-danger"><i
+                                                                    class="bi bi-trash"></i></a>
                                                         </td>
                                                     </tr>
                                                     <% }) %>
                                             </table>
                         </div>
                     </div>
-
-            </div>
-            <!-- Form -->
-            <div class="d-flex justify-content-center  modal">
-                <div class="login-container" id="container">
-                    <div class="form-container sign-in">
-                        <form action="/texts" method="POST">
-                            <h1>
-                                <%= add +" " + texts %>
-                        </h1>
-                        <select name=" studentId" id="" class="input">
-                                    <option value="1">1</option>
-                                    </select>
-                                    <input type="text" placeholder="<%= levelId %>" name="levelId" class="input">
-                                    <textarea type="text" placeholder="<%= content %>" name="content" class="input"></textarea>
-                                    <button type="submit">
-                                        <%=add%>
-                                    </button>
-                        </form>
-                    </div>
-                    <div class="toggle-container">
-                        <button id="close-btn"><i class="bi bi-x-lg"></i></button>
-                        <div class="toggle">
-                            <div class="toggle-panel toggle-right">
-                                <h1>HWS</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
     </body>
     <script src="js/form.js"></script>
+
     </html>

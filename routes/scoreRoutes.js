@@ -1,6 +1,5 @@
-const sequelize = require("../config/database");
 const { Router } = require("express");
-const { saveScore, getAllScores } = require("../controllers/scoreController");
+const { saveScore, getAllScores, deleteScore } = require("../controllers/scoreController");
 
 const router = Router();
 
@@ -8,6 +7,11 @@ const router = Router();
 router.route("/")
     .post(saveScore)
     .get(getAllScores)
+
+router.route("/:id")
+    .delete(deleteScore)
+
+
 
 
 module.exports = router;

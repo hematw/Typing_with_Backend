@@ -14,12 +14,16 @@
     "add": "Add",
     "update": "Update",
     "signin": "Sign In",
+    "levelId": "Level ID",
+    "content": "Content",
     "email": "Email",
     "password": "Password",
     "forgot": "Forgot your Password?",
     "wellcome": "Wellcome",
-    "loginMsg": "Type your Email and Password",
+    "loginMsg": "Happy to see you here",
     "lang": "Language",
-    "username": "Username"
+    "username": "Username",
+    "register": "Register",
+    "newUserMsg": "doesn't have any account?"
 
 }

@@ -1,16 +1,88 @@
-<%- include("partials/head.ejs") %>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Home - Atom Typing</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .hero {
+            background: url('https://images.unsplash.com/photo-1636038692415-6276311a53cd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center center/cover no-repeat;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            min-height: calc(100vh - 100px);
+        }
+
+        .hero::after {
+            content: '';
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .hero-img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .navbar-custom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
 
 <body>
-    <div class="d-flex justify-content-between">
-        <%- include("partials/dashboard") %>
-        <div class="d-flex justify-content-center align-items-center container">
-            <div>
-                <h1 class="display-3 fw-6"><%= wellcomeMsg %> <%= logedUser?.username %></h1>
-                <p>The future belongs to those who believe in the beauty of their dreams.</p>
-            </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom">
+        <div>
+            <a class="navbar-brand fs-bolder" href="#">ATOM Typing</a>
+            <a class="navbar-brand" href="/users">Dashboard</a>
         </div>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <a href="/login" class="btn btn-outline-primary ml-2">Login</a>
+            <a href="/register" class="btn btn-primary ml-2">Register</a>
+        </div>
+    </nav>
 
-    </div>
+    <section class="hero d-flex align-items-center justify-content-center">
+        <div class="container text-center hero-content">
+            <h1 class="display-4">The best Typing Game ever</h1>
+            <p class="lead">Practice and test your typing skills with ATOM Typing.</p>
+            <a href="/login" class="btn btn-success btn-lg">Get Started</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <%= new Date().getFullYear() %> Atom Typing. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

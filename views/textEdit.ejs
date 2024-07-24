@@ -4,22 +4,20 @@
         <div class="d-flex justify-content-center mt-5">
             <div class="login-container" id="container">
                 <div class="form-container sign-in">
-                    <form action="/users/<%= data.id%>?_method=PUT" method="POST">
+                    <form action="/texts/<%= data.id%>?_method=PUT" method="POST">
                         <h1>
-                            <%= update +" " + users %></h1>
-                            <input type=" text" placeholder="<%= username %>" name="username" class="input"
-                                value="<%= data.username %>">
-                                <input type="text" placeholder="<%= email %>" name="email" class="input"
-                                    value="<%= data.email %>">
-                                <input type="text" placeholder="<%= password %>" name="password" class="input"
-                                    value="<%= data.password %>">
+                            <%= update +" " + texts %></h1>
+                            <input type=" text" placeholder="levelId" name="levelId" class="input"
+                                value="<%= data.levelId %>">
+                                <textarea type="text" placeholder="content" name="content" class="input h-25"
+                                    ><%= data.content %></textarea>
                                 <button type="submit">
                                     <%=update%>
                                 </button>
                     </form>
                 </div>
                 <div class="toggle-container">
-                    <a href="/users" id="close-btn"><i class="bi bi-x-lg"></i></a>
+                    <a href="/texts" id="close-btn"><i class="bi bi-x-lg"></i></a>
                     <div class="toggle">
                         <div class="toggle-panel toggle-right">
                             <h1>HWS</h1>

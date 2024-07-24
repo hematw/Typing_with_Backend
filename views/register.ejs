@@ -1,0 +1,45 @@
+<%- include("partials/head") %>
+    <div class="d-flex justify-content-center align-items-center container">
+
+        <div class="login-container" id="container">
+            <div class="form-container sign-in">
+                <form action="/register" method="POST">
+                    <h1>
+                        <%= title %>
+                    </h1>
+                    <input type="username" placeholder="<%= username %>" name="username" class="input">
+                    <input type="email" placeholder="<%= email %>" name="email" class="input">
+                    <input type="password" placeholder="<%= password %>" name="password" class="input">
+                    <a href="#">
+                        <%= forgot %>
+                    </a>
+                    <button>
+                        <%= title %>
+                    </button>
+                    <a href="#">
+                        <%= newUserMsg %>
+                    </a>
+                </form>
+            </div>
+            <div class="toggle-container">
+                <div class="toggle">
+                    <h1>HWS</h1>
+                    <h3>
+                        <%= wellcomeMsg %>
+                    </h3>
+                    <p>
+                        <%= loginMsg %>
+                    </p>
+                    <div class="dropdown">
+                        <button class="dropbtn"><i class="bi bi-globe-europe-africa"></i>
+                            <%= lang %>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="./setLanguage/en"><i class="fi fi-gb"></i>English</a>
+                            <a href="./setLanguage/fa"><i class="fi fi-af"></i>فارسی</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

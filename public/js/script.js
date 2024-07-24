@@ -16,7 +16,7 @@ const form = document.getElementById("score-form")
 
 let charIndex = mistakes = 0,
     isTyping = false,
-    timer, maxTime = 10,
+    timer, maxTime = 60,
     timeLeft = maxTime,
     wpm,
     viewportWidth = window.innerWidth,

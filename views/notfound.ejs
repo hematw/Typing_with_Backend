@@ -1,15 +1,25 @@
 <%- include("partials/head.ejs") %>
 
-<body>
-    <div class="d-flex justify-content-between">
-        <div class="d-flex justify-content-center align-items-center container">
-            <div>
-                <h1 class="display-1 ">404 Oops 🤔</h1>
-                <p>Requested page Not Found</p>
-            </div>
-        </div>
+<body class="d-flex align-items-center justify-content-center vh-100 bg-light text-center">
 
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card shadow-lg">
+          <div class="card-body">
+            <h1 class="display-1 text-danger">404</h1>
+            <h2 class="font-weight-bold">Oops 🤔</h2>
+            <p class="lead">The page you requested was not found.</p>
+            <a href="/" class="btn btn-primary mt-3">Go Back Home</a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
