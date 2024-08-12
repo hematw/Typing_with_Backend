@@ -8,7 +8,7 @@ function saveScore(req, res) {
   })
     .then((score) => {
       req.flash("msg", score);
-      res.redirect("/");
+      res.redirect("back");
       console.log(score);
     })
     .catch((err) => {

@@ -27,8 +27,8 @@
                     <%= title %>
                 </h1>
                 <% if (msgs.length !== 0) { %>
-                <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-md">
-                    <% msgs.forEach((msg) => { %>
+                    <div class="mb-4 p-4 bg-red-100 border-2 border-green-500 text-green-700 rounded-md">
+                        <% msgs.forEach((msg) => { %>
                     <p>
                         <%= msg %>
                     </p>
@@ -37,8 +37,8 @@
                 
                 <% } %>
                 <% if (errors.length !== 0) { %>
-                <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-md">
-                    <% errors.forEach((err) => { %>
+                    <div class="mb-4 p-4 bg-red-100 border-2 border-red-500 text-red-700 rounded-md">
+                        <% errors.forEach((err) => { %>
                     <p>
                         <%= err %>
                     </p>

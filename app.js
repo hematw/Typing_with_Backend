@@ -2,7 +2,6 @@ const express = require("express");
 const userRoutes = require("./routes/userRoutes");
 const textRoutes = require("./routes/textRoutes");
 const scoreRoutes = require("./routes/scoreRoutes");
-const bcrypt = require("bcrypt");
 const session = require("express-session");
 const methodOverride = require("./middlewares/methodOverride");
 const flash = require("connect-flash");
@@ -122,7 +121,7 @@ app.post(
     next();
   },
   (req, res) => {
-    res.status(302).redirect("/");
+    res.status(302).redirect("back");
   }
 );
 
@@ -135,15 +134,22 @@ app.use((req, res, next) => {
 });
 
 app.get("/typing", (req, res) => {
+  const levelQuery = req.query.level;
   Score.findOne({
     where: { userId: req.user.dataValues.id },
     attributes: [[sequelize.fn("MAX", sequelize.col("levelId")), "maxLevel"]],
   })
     .then((result) => {
-      const maxLevel = result.dataValues.maxLevel || 1;
+      const maxLevel =result.dataValues.maxLevel + 1;
+      let level=maxLevel;
+      if(levelQuery < (maxLevel + 1)){
+        level = levelQuery
+      }
+        
+
       Text.findOne({
         where: {
-          levelId: maxLevel,
+          levelId: level,
         },
       }).then((text) => {
         res.render("typing", {

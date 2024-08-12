@@ -1,6 +1,5 @@
 const { User } = require("../models/associations");
-
-let table = "users";
+const bcrypt = require("bcrypt");
 
 const getUser = (req, res) => {
   User.findOne({
@@ -64,6 +63,7 @@ const createUser = (req, res) => {
   req.body = {
     ...req.body,
     [req.body.studentId]: parseInt(req.body.studentId),
+    password: bcrypt.hashSync(req.body.password, 10),
   };
   User.create(req.body)
     .then((user) => {
@@ -78,9 +78,17 @@ const createUser = (req, res) => {
 };
 
 const updateUser = (req, res) => {
-  User.update(req.body, {
-    where: { id: req.params.id },
-  })
+  let password = req.body.password;
+  if (password) password = bcrypt.hashSync(password);
+  User.update(
+    {
+      ...req.body,
+      password,
+    },
+    {
+      where: { id: req.params.id },
+    }
+  )
     .then((user) => {
       if (!user) {
         req.flash("err", "User Not Found!");

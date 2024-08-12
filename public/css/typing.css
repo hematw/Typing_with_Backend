@@ -19,7 +19,6 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #eee;
     text-decoration: none;
 }
 
@@ -183,15 +182,10 @@ span.incorrect {
 
 .result-details {
     background-color: #fff;
-    width: 400px;
-    height: 220px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: max(33%, 440px);
     border-radius: 10px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
-    padding: 2em 3em;
+    /* border: 4px solid black; */
 }
 
 .result-details button {
@@ -210,18 +204,6 @@ span.incorrect {
 
 .result-details button:active {
     transform: scale(0.97);
-}
-
-.result-details p {
-    display: flex;
-    height: 20px;
-    list-style: none;
-    position: relative;
-    align-items: center;
-}
-
-.result-details p {
-    font-size: 19px;
 }
 
 span b {

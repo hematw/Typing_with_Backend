@@ -1,48 +1,59 @@
 <%- include("partials/head") %>
-    <div class="flex justify-center items-center min-h-screen">
+<body>
+<div class="flex justify-center items-center min-h-screen">
+    <div class="login-container" id="container">
+        <div class="form-container sign-in">
+            <form action="/register" method="POST" id="registerForm">
+                <h1 class="text-2xl font-bold">
+                    <%= title %>
+                </h1>
+                <div class="form-control w-full">
+                    <input type="text" placeholder="<%= username %>" name="username" class="input" id="username">
 
-        <div class="login-container" id="container">
-            <div class="form-container sign-in">
-                <form action="/register" method="POST">
-                    <h1  class="text-2xl font-bold">
-                        <%= title %>
-                    </h1>
-                    <input type="username" placeholder="<%= username %>" name="username" class="input">
-                    <input type="email" placeholder="<%= email %>" name="email" class="input">
-                    <input type="password" placeholder="<%= password %>" name="password" class="input">
-                    <a href="#">
-                        <%= forgot %>
-                    </a>
-                    <button class="bg-blue-500 text-white rounded p-2 w-full">
-                        <%= title %>
+                </div>
+                <div class="form-control w-full">
+                    <input type="text" placeholder="<%= email %>" name="email" class="input" id="email">
+
+                </div>
+                <div class="form-control w-full">
+                    <input type="password" placeholder="<%= password %>" name="password" class="input" id="password">
+
+                </div>
+                <a href="#">
+                    <%= forgot %>
+                </a>
+                <button type="submit" class="bg-blue-500 text-white rounded p-2 w-full">
+                    <%= title %>
+                </button>
+                <p>
+                    <%= haveAccount %>
+                        <a href="/login">
+                            Login
+                        </a>
+                </p>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <h1 class="text-4xl font-bold">ATOM</h1>
+                <p class="text-sm">
+                    <%= loginMsg %>
+                </p>
+                <div class="dropdown relative inline-block text-left">
+                    <button class="dropbtn w-full rounded-md shadow-sm px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2">
+                        <i class="bi bi-globe-europe-africa"></i>
+                        <%= lang %>
                     </button>
-                    <p>
-                        <%= haveAccount %>
-                            <a href="/login">
-                                Login
-                            </a>
-                    </p>
-                </form>
-            </div>
-            <div class="toggle-container">
-                <div class="toggle">
-                    <h1 class="text-4xl font-bold">ATOM</h1>
-                    <p class="text-sm">
-                        <%= loginMsg %>
-                    </p>
-                    <div class="dropdown relative inline-block text-left">
-                        <button class="dropbtn w-full rounded-md shadow-sm px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2">
-                            <i class="bi bi-globe-europe-africa"></i>
-                            <%= lang %>
-                        </button>
-                        <div class="dropdown-content origin-top-right absolute right-0 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                            <div class="py-1 text-center">
-                                <a href="./setLanguage/en" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i class="fi fi-gb"></i>English</a>
-                                <a href="./setLanguage/fa" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i class="fi fi-af"></i>فارسی</a>
-                            </div>
+                    <div class="dropdown-content origin-top-right absolute right-0 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                        <div class="py-1 text-center">
+                            <a href="./setLanguage/en" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i class="fi fi-gb"></i>English</a>
+                            <a href="./setLanguage/fa" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i class="fi fi-af"></i>فارسی</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+    <script src="js/validate.js"></script>
+</body>
