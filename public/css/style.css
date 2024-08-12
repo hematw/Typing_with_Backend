@@ -1,169 +1,167 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Mono&display=swap");
 @import url(./fontiran.css);
+@import url(./tailwind.css);
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html[dir="rtl"] body {
-    font-family: IRANSans, sans-serif !important;
+  font-family: IRANSans, sans-serif !important;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .container {
-    min-height: 100vh;
-    padding: 0;
+  min-height: 100vh;
+  width: 100%;
 }
-
 
 /* Table styles */
 .data-container {
-    width: 100%;
-    max-height: 100vh;
-    padding: 40px;
-    overflow: auto;
+  width: 100%;
+  max-height: 100vh;
+  padding: 40px;
+  overflow: auto;
 }
 
 .table-container {
-    line-height: 16px;
+  line-height: 16px;
 }
 
 .search {
-    width: 300px;
-    float: left;
+  width: 300px;
+  float: left;
 }
 
 .add-new {
-    float: right;
+  float: right;
 }
 
 h1 {
-    clear: both;
+  clear: both;
 }
 
 .msg,
 .err {
-    margin: 16px 0;
+  margin: 16px 0;
 }
 
 .msg p {
-    background-color: #cbf6bd;
-    color: #0f7e05;
-    padding: 14px 8px;
-    border: 1px solid #0f7e05;
-    border-radius: 6px;
-    margin: 0;
+  background-color: #cbf6bd;
+  color: #0f7e05;
+  padding: 14px 8px;
+  border: 1px solid #0f7e05;
+  border-radius: 6px;
+  margin: 0;
 }
 
 .err p {
-    background-color: #f6bdbd;
-    color: #f66;
-    padding: 14px 8px;
-    border: 1px solid #f66;
-    border-radius: 6px;
-    margin: 0;
+  background-color: #f6bdbd;
+  color: #f66;
+  padding: 14px 8px;
+  border: 1px solid #f66;
+  border-radius: 6px;
+  margin: 0;
 }
 
 /* Pagination Styles */
 .pagination {
-    display: inline-block;
+  display: inline-block;
 }
 
 .pagination a {
-    background: #dbeffa;
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color .3s;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin: 0 4px;
+  background: #dbeffa;
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin: 0 4px;
 }
 
 .pagination a:hover {
-    background-color: #bde4fa;
-    border: 1px solid #127bb7;
+  background-color: #bde4fa;
+  border: 1px solid #127bb7;
 }
 
 .pagination a.active {
-    background-color: #127bb7;
-    color: white;
-    border: 1px solid #127bb7;
+  background-color: #127bb7;
+  color: white;
+  border: 1px solid #127bb7;
 }
 
 .prev,
 .next {
-    background-color: #127bb7;
-    color: #bde4fa;
+  background-color: #127bb7;
+  color: #bde4fa;
 }
 
 caption {
-    display: table-caption;
-    text-align: center;
-}
-
-.dropdown {
-    position: relative;
-    margin: 0 16px;
-    min-width: 120px;
+  display: table-caption;
+  text-align: center;
 }
 
 .dropdown-content {
-    position: absolute;
-    display: none;
-    z-index: 1;
-    width: 100%;
-    box-shadow: 2px 2px 8px #127bb7;
+  position: absolute;
+  display: none;
+  z-index: 1;
+  width: 100%;
+  box-shadow: 2px 2px 8px #127bb7;
 }
 
 .dropdown .dropbtn {
-    background-color: #127bb7;
-    color: #fff;
-    border-radius: 4px;
-    border: none;
-    padding: 6px;
-    width: 100%;
+  background-color: #127bb7;
+  width: 100%;
 }
 
 .dropdown:hover .dropdown-content {
-    display: block;
+  display: block;
 }
 
 .dropdown a {
-    display: block;
-    background-color: #fff;
-    width: 100%;
-    margin: 0;
-    padding: 8px 12px;
+  display: block;
+  background-color: #fff;
+  width: 100%;
+  margin: 0;
+  padding: 8px 12px;
 }
 
 .dropdown a:hover {
-    background-color: #eee;
+  background-color: #eee;
 }
 
 .dropdown i {
-    margin: 0 8px;
+  margin: 0 8px;
 }
 
 #close-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.2em;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    padding: 0;
-    background-color: #cbf6bd;
-    color: #127bb7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.2em;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  padding: 0;
+  background-color: #cbf6bd;
+  color: #127bb7;
+}
+
+form a {
+  color: #127bb7 !important;
+}
+
+tr td {
+  margin-right: 1em;
 }

@@ -3,6 +3,7 @@ const modal = document.querySelector(".modal");
 const closeBtn = document.getElementById("close-btn");
 
 
+console.log(modal);
 addBtn.addEventListener("click", ()=> {
     modal.classList.add("active");
 })

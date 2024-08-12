@@ -20,10 +20,10 @@
     "password": "Password",
     "forgot": "Forgot your Password?",
     "wellcome": "Wellcome",
-    "loginMsg": "Happy to see you here",
+    "loginMsg": "We are happy to see you here",
     "lang": "Language",
     "username": "Username",
     "register": "Register",
-    "newUserMsg": "doesn't have any account?"
-
+    "newUser": "Doesn't have any account?",
+    "haveAccount": "Already have an account?"
 }

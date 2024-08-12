@@ -22,7 +22,8 @@
     "wellcome": "کاربر عزیز خوش آمدید!",
     "loginMsg": "از این که شما اینجا هستید خوشحالیم",
     "lang": "زبان",
-    "newUserMsg": "حساب کاربری ندارید؟",
+    "newUser": "حساب کاربری ندارید؟",
     "register": "ثبت نام",
-    "username": "نام کابری"
+    "username": "نام کابری",
+    "haveAccount": "Already have an account?"
 }

@@ -77,7 +77,7 @@ function levelEnabler() {
     let maxLevel = localStorage.getItem("maxLevel") || 1;
     allOptions.forEach((option) => {
         if (maxLevel < option.value) {
-            option.setAttribute("disabled", "disabled")
+            option.setAttribute("disabled", "true")
         }
     })
 }

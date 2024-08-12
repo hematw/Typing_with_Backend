@@ -1,32 +1,27 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <title>Typing Test</title>
-    <link rel="stylesheet" href="./css/typing.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+<%- include('./partials/head.ejs') %>
 
 <body>
 
     <div class="header">
-        <h3>Typing Game</h3>
+        <a class="font-semibold mr-3" href="/">
+            <img src="images/typing-logo.png" alt="Typing logo" style="width: 60px;">
+            <h3>ATOM Typing</h3>
+        </a>
         <p class="time">
             <span><b>1:00</b>s</span>
         </p>
         <div>
             Language:
-            <select id="lang-selector">
+            <select class="text-black" id="lang-selector">
                 <option value="en">en</option>
                 <option value="fa">fa</option>
             </select>
             Level:
-            <select id="level-selector">
+            <select class="text-black" id="level-selector">
                 <option value="1">Level 1</option>
             </select>
             Your Level: 
-            <%= data.maxLevel %>
+            <%= maxLevel %>
         </div>
         <div class="progress-bar"></div>
     </div>

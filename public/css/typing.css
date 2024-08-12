@@ -2,6 +2,7 @@
 
 body{
     margin: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
 .header {
@@ -12,6 +13,14 @@ body{
     background: linear-gradient(#0c86bb, #58bbf0);
     color: #fff;
     padding: 6px 16px;
+}
+
+.header a{ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #eee;
+    text-decoration: none;
 }
 
 .progress-bar {

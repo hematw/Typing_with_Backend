@@ -1,38 +1,44 @@
 <%- include("partials/head") %>
-    <div class="d-flex justify-content-center align-items-center container">
+    <div class="flex justify-center items-center container mx-auto">
 
-        <div class="login-container" id="container">
+        <div class="login-container " id="container">
             <div class="form-container sign-in">
-                <form action="/login" method="POST">
-                    <h1>
+                <form action="/login" method="POST" class="space-y-4">
+                    <h1 class="text-2xl font-bold">
                         <%= title %>
                     </h1>
-                    <input type="email" placeholder="<%= email %>" name="email" class="input">
-                    <input type="password" placeholder="<%= password %>" name="password" class="input">
-                    <a href="#">
+                    <input type="email" placeholder="<%= email %>" name="email" class="input border rounded p-2 w-full">
+                    <input type="password" placeholder="<%= password %>" name="password" class="input border rounded p-2 w-full">
+                    <a href="#" class="text-blue-500 hover:underline">
                         <%= forgot %>
                     </a>
-                    <button>
+                    <button class="bg-blue-500 text-white rounded p-2 w-full">
                         <%= title %>
                     </button>
+                    <p class="text-sm">
+                        <%= newUser %>
+                        <a href="/register" class="text-blue-500 hover:underline">
+                            Register
+                        </a>
+                    </p>
                 </form>
             </div>
             <div class="toggle-container">
-                <div class="toggle">
-                    <h1>HWS</h1>
-                    <h3>
-                        <%= wellcomeMsg %>
-                    </h3>
-                    <p>
+                <div class="toggle text-center">
+                    <h1 class="text-4xl font-bold">ATOM</h1>
+                    <p class="text-sm">
                         <%= loginMsg %>
                     </p>
-                    <div class="dropdown">
-                        <button class="dropbtn"><i class="bi bi-globe-europe-africa"></i>
+                    <div class="dropdown relative inline-block text-left">
+                        <button class="dropbtn w-full rounded-md shadow-sm px-4 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2">
+                            <i class="bi bi-globe-europe-africa"></i>
                             <%= lang %>
                         </button>
-                        <div class="dropdown-content">
-                            <a href="./setLanguage/en"><i class="fi fi-gb"></i>English</a>
-                            <a href="./setLanguage/fa"><i class="fi fi-af"></i>فارسی</a>
+                        <div class="dropdown-content origin-top-right absolute right-0 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                            <div class="py-1 text-center">
+                                <a href="./setLanguage/en" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i class="fi fi-gb"></i>English</a>
+                                <a href="./setLanguage/fa" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><i class="fi fi-af"></i>فارسی</a>
+                            </div>
                         </div>
                     </div>
                 </div>

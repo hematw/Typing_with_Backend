@@ -73,6 +73,7 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   res.render("home", {
     lang: global.lang,
+    user: req.user,
     title: "Atom Typing",
   });
 });
@@ -85,6 +86,7 @@ app.get("/login", (req, res) => {
       title: req.t("signin"),
       wellcomeMsg: req.t("wellcome"),
       loginMsg: req.t("loginMsg"),
+      newUser: req.t("newUser"),
       email: req.t("email"),
       password: req.t("password"),
       forgot: req.t("forgot"),
@@ -100,7 +102,7 @@ app.get("/register", (req, res) => {
     res.render("register", {
       title: req.t("register"),
       username: req.t("username"),
-      newUserMsg: req.t("newUserMsg"),
+      haveAccount: req.t("haveAccount"),
       wellcomeMsg: req.t("wellcome"),
       loginMsg: req.t("loginMsg"),
       email: req.t("email"),
@@ -134,31 +136,33 @@ app.use((req, res, next) => {
 
 app.get("/typing", (req, res) => {
   Score.findOne({
-    where: { userId: req.user.id },
+    where: { userId: req.user.dataValues.id },
     attributes: [[sequelize.fn("MAX", sequelize.col("levelId")), "maxLevel"]],
   })
     .then((result) => {
-      const maxLevel = result.dataValues.maxLevel;
+      const maxLevel = result.dataValues.maxLevel || 1;
       Text.findOne({
         where: {
           levelId: maxLevel,
         },
       }).then((text) => {
-        console.log(text?.dataValues);
         res.render("typing", {
           data: text?.dataValues,
           user: req.user,
+          maxLevel,
+          title: "ATOM | Typing",
+          lang: req.t("lang"),
         });
       });
     })
     .catch((err) => console.log(err));
 });
 
-app.use(isAdmin());
+app.use("/records", scoreRoutes);
 
+app.use(isAdmin());
 app.use("/users", userRoutes);
 app.use("/texts", textRoutes);
-app.use("/records", scoreRoutes);
 
 app.use((req, res) => {
   res

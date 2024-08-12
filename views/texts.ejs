@@ -1,104 +1,129 @@
 <%- include("partials/head.ejs") %>
 
-    <body>
-        <div class="d-flex justify-content-between">
-            <div class="d-flex justify-content-between">
-                <%- include("partials/dashboard") %>
-                    <div class="data-container">
-                        <header>
-                            <div class="input-group mb-3 search">
-                                <input type="text" class="form-control" placeholder="Search..."
-                                    aria-label="Recipient's username" aria-describedby="button-addon2">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i
-                                        class="bi bi-search"></i></button>
-                            </div>
-                            <button class="btn btn-primary add-new" onclick="activateEl">
-                                <%= add %><i class="bi bi-person"></i>
-                            </button>
-                        </header>
+<body>
+    <div class="flex justify-between">
+        <%- include("partials/dashboard") %>
+        <div class="data-container w-full p-4">
+            <header class="mb-4 flex justify-between items-center">
+                <div class="flex items-center mb-3">
+                    <input type="text"
+                        class="form-input w-full border-gray-300 rounded-md"
+                        placeholder="Search..." aria-label="Search"
+                        aria-describedby="button-addon2">
+                    <button
+                        class="ml-2 bg-gray-200 text-gray-700 rounded-md p-2"
+                        type="button" id="button-addon2"><i
+                            class="bi bi-search"></i></button>
+                </div>
+                <button
+                    class="bg-blue-500 text-white p-2 rounded-md flex items-center add-new"
+                    onclick="activateEl">
+                    <%= add %><i class="bi bi-person ml-2"></i>
+                </button>
+            </header>
 
-                        <div>
-                            <h1>
-                                <%= title %>
-                            </h1>
-                            <% if(msgs.length !==0) { %>
-                                <div class="msg">
-                                    <% msgs.forEach((msg)=> {%>
-                                        <p>
-                                            <%= msg %>
-                                        </p>
-                                        <% }) %>
-                                </div>
-                                <% } %>
+            <div>
+                <h1 class="text-2xl font-semibold mb-4">
+                    <%= title %>
+                </h1>
+                <% if (msgs.length !== 0) { %>
+                <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-md">
+                    <% msgs.forEach((msg) => { %>
+                    <p>
+                        <%= msg %>
+                    </p>
+                    <% }) %>
+                </div>
 
-                                    <% if(errors.length !==0) { %>
-                                        <div class="err">
-                                            <% errors.forEach((err)=> {%>
-                                                <p>
-                                                    <%= err %>
-                                                </p>
-                                                <% }) %>
-                                        </div>
-                                        <% } %>
-                                            <table class="table table-striped">
-                                                <tr>
-                                                    <th scope="col">ID</th>
-                                                    <th scope="col">Level</th>
-                                                    <th scope="col">Content</th>
-                                                    <th scope="col">Actions</th>
-                                                </tr>
-                                                <% data.forEach((text)=> { %>
-                                                    <tr>
-                                                        <td scope="row">
-                                                            <%= text.id %>
-                                                        </td>
-                                                        <td scope="row">
-                                                            <%= text.levelId %>
-                                                        </td>
-                                                        <td scope="row">
-                                                            <%= text.content %>
-                                                        </td>
-                                                        <td>
-                                                            <a href="/texts/<%= text.id %>"
-                                                                class="btn btn-warning"><i class="bi bi-pen"></i></a>
-                                                            <a href="/texts/<%= text.id %>?_method=DELETE"
-                                                                class="btn btn-danger"><i class="bi bi-trash"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    <% }) %>
-                                            </table>
-                        </div>
-                    </div>
+                
+                <% } %>
+                <% if (errors.length !== 0) { %>
+                <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-md">
+                    <% errors.forEach((err) => { %>
+                    <p>
+                        <%= err %>
+                    </p>
+                    <% }) %>
+                </div>
 
+                
+                <% } %>
+                <table
+                    class="min-w-full rounded-lg border-2 border-separate border-spacing-2 border-blue-400 px-4 py-2 divide-y divide-gray-300">
+                    <thead class="border-b-4 border-black">
+                        <tr class="text-left">
+                            <th scope="col">No</th>
+                            <th scope="col">Level</th>
+                            <th scope="col">Content</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% data.forEach((text, index) => { %>
+                        <tr class="border-b border-black">
+                            <td class="py-2">
+                                <%= index + 1 %>
+                            </td>
+                            <td class="py-2">
+                                <%= text.levelId %>
+                            </td>
+                            <td class="py-2">
+                                <%= text.content %>
+                            </td>
+                            <td class="py-2 whitespace-nowrap">
+                                <a href="/texts/<%= text.id %>"
+                                    class="bg-lime-500 text-white px-4 py-2 rounded-md"><i
+                                        class="bi bi-pen"></i></a>
+                                <a href="/texts/<%= text.id %>?_method=DELETE"
+                                    class="bg-red-500 text-white px-4 py-2 rounded-md"><i
+                                        class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </table>
             </div>
-            <!-- Form -->
-            <div class="d-flex justify-content-center  modal">
-                <div class="login-container" id="container">
-                    <div class="form-container sign-in">
-                        <form action="/texts" method="POST">
-                            <h1>
-                                <%= add +" " + texts %>
-                        </h1>
-                        <select name=" studentId" id="" class="input">
-                                    <option value="1">1</option>
-                                    </select>
-                                    <input type="text" placeholder="<%= levelId %>" name="levelId" class="input">
-                                    <textarea type="text" placeholder="<%= content %>" name="content" class="input"></textarea>
-                                    <button type="submit">
-                                        <%=add%>
-                                    </button>
-                        </form>
-                    </div>
-                    <div class="toggle-container">
-                        <button id="close-btn"><i class="bi bi-x-lg"></i></button>
-                        <div class="toggle">
-                            <div class="toggle-panel toggle-right">
-                                <h1>HWS</h1>
-                            </div>
-                        </div>
+        </div>
+
+    </div>
+    <!-- Form -->
+    <div class="modal bg-gray-900 bg-opacity-50 z-50">
+        <div class="login-container bg-white p-8 rounded-lg shadow-md"
+            id="container">
+            <div class="form-container sign-in">
+                <form action="/texts" method="POST">
+                    <h1 class="text-2xl font-semibold mb-4">
+                        <%= add + " " + texts %>
+                    </h1>
+                    <select name="studentId" id=""
+                        class="form-select mb-4 p-2 w-full border border-gray-300 rounded-md">
+                        <option value="1">1</option>
+                    </select>
+                    <input type="text"
+                        placeholder="<%= levelId %>"
+                        name="levelId"
+                        class="form-input mb-4 p-2 w-full border border-gray-300 rounded-md">
+                    <textarea type="text"
+                        placeholder="<%= content %>"
+                        name="content"
+                        class="form-input mb-4 p-2 w-full border border-gray-300 rounded-md">
+                    </textarea>
+                    <button type="submit"
+                        class="bg-blue-500 text-white p-2 w-full rounded-md">
+                        <%= add %>
+                    </button>
+                </form>
+            </div>
+            <div class="toggle-container">
+                <button id="close-btn"><i class="bi bi-x-lg"></i></button>
+                <div class="toggle">
+                    <div class="toggle-panel toggle-right">
+                        <h1>ATOM</h1>
                     </div>
                 </div>
             </div>
-    </body>
-    <script src="js/form.js"></script>
-    </html>
+        </div>
+    </div>
+</body>
+<script src="js/form.js"></script>
+
+</html>

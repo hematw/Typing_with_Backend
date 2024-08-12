@@ -1,88 +1,72 @@
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Home - Atom Typing</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+<%- include('./partials/head.ejs') %>
 
-        .hero {
-            background: url('https://images.unsplash.com/photo-1636038692415-6276311a53cd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center center/cover no-repeat;
-            color: white;
-            padding: 100px 0;
-            text-align: center;
-            position: relative;
-            min-height: calc(100vh - 100px);
-        }
-
-        .hero::after {
-            content: '';
-            background-color: rgba(0, 0, 0, 0.5);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .footer {
-            background-color: #f8f9fa;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        .hero-img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .navbar-custom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-    </style>
-</head>
-
-<body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom">
-        <div>
-            <a class="navbar-brand fs-bolder" href="#">ATOM Typing</a>
-            <a class="navbar-brand" href="/users">Dashboard</a>
+<body class="min-h-screen flex flex-col">
+    <nav class="bg-light px-10 p-6 flex justify-between items-center">
+        <div class="flex items-center">
+            <a href="#" class="font-bold mr-3 flex items-center">
+                <img src="images/typing-logo.png" alt="Typing logo"
+                    class="w-12">
+                ATOM Typing
+            </a>
+            <a href="/typing" class="mx-3">Start Typing</a>
         </div>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <a href="/login" class="btn btn-outline-primary ml-2">Login</a>
-            <a href="/register" class="btn btn-primary ml-2">Register</a>
+        <% if (!user) { %>
+        <div class="md:flex space-x-2">
+            <a href="/login"
+                class="text-lg text-primary border-2 border-primary rounded px-3 py-1 hover:bg-primary hover:text-stone-500 transition duration-300 ease-in-out">Login</a>
+            <a href="/register"
+                class="text-lg bg-blue-500 text-white rounded px-3 py-1 hover:bg-opacity-80 transition duration-300 ease-in-out">Register</a>
         </div>
+        <% } else { %>
+        <div class="dropdown relative inline-block text-left w-44">
+            <button
+                class="dropbtn bg-blue-400 w-full rounded-md shadow-sm px-4 py-2 text-sm font-medium  text-white">
+                <i class="bi bi-person-circle"></i>
+                <span>
+                    <%= user.dataValues.username.toUpperCase() %>
+                </span>
+            </button>
+            <div
+                class="dropdown-content w-full overflow-hidden rounded-md bg-white text-blue-500 font-semibold">
+                <% if (user.dataValues.roleId == 1) { %><a
+                    href="/users"
+                    class="block py-2  hover:bg-gray-100 text-sm">
+                    <i class="bi bi-clipboard-data"></i>
+                    Dashboard
+                </a>
+
+                
+                <% } %><a href="./logout"
+                    class="block py-2 text-sm hover:bg-gray-100">
+                    <i class="bi bi-box-arrow-left"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
+
+        
+        <% } %>
     </nav>
-
-    <section class="hero d-flex align-items-center justify-content-center">
-        <div class="container text-center hero-content">
-            <h1 class="display-4">The best Typing Game ever</h1>
-            <p class="lead">Practice and test your typing skills with ATOM Typing.</p>
-            <a href="/login" class="btn btn-success btn-lg">Get Started</a>
+    <section
+        class="hero flex items-center justify-center bg-cover bg-center text-white py-24 relative"
+        style="background-image: url('https://images.unsplash.com/photo-1636038692415-6276311a53cd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+        <div class="text-center hero-content relative z-10">
+            <img src="images/typing-logo.png" alt="Typing logo"
+                class="w-48 mb-8 mx-auto">
+            <h1 class="text-6xl font-bold mb-4">The best Typing Game ever</h1>
+            <p class="text-xl mb-8">Practice and test your typing skills with
+                ATOM Typing.</p>
+            <a href="/typing"
+                class="bg-green-600 text-xl text-white py-2 px-6 rounded-lg hover:bg-opacity-80 transition duration-300 ease-in-out">Get
+                Started</a>
         </div>
+        <div class="absolute inset-0 bg-black opacity-50"></div>
     </section>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; <%= new Date().getFullYear() %> Atom Typing. All rights reserved.</p>
-        </div>
+    <footer class="footer bg-gray-100 py-5 text-center">
+        <p>&copy;
+            <%= new Date().getFullYear() %>Atom Typing. All
+            rights reserved.
+        </p>
     </footer>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
-</html>
